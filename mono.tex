@@ -1,0 +1,110 @@
+\documentclass[a4paper,11pt,oneside,openright,final,mono]{ufopthesis}
+
+\usepackage[english,brazil]{babel} 
+% \usepackage[latin1]{inputenc}
+\usepackage[latin1, utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{natbib} % [longnamesfirst]
+\usepackage[alf]{abntex2cite}
+\usepackage{rotating}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb,amscd,eucal,amsmath}
+\usepackage{multirow}
+\usepackage{subfig}
+%\usepackage[T1]{fontenc}
+
+%\usepackage[subfig]{tocloft}
+%\usepackage[dvips,a4paper,english,bookmarks=true,bookmarksnumbered=true,linktocpage]{hyperref}
+
+\usepackage[ruled, algochapter, vlined,algo2e]{algorithm2e}
+\renewcommand{\listalgorithmcfname}{Lista de Algoritmos}%
+\renewcommand{\algorithmcfname}{Algoritmo}%
+
+
+%% vilar 
+%\let\insertchapterspaceold=\insertchapterspace
+%\renewcommand{\insertchapterspace}{%
+%  \insertchapterspaceold
+%  \addtocontents{loa}{\protect\addvspace{10pt}}%
+%}
+%\usepackage{listings} 
+%\usepackage{listings}
+%\lstset{
+%  language=Pascal, % C
+%  basicstyle=\fontsize{10}{12}\selectfont,
+%  captionpos=b,
+%  mathescape=true,
+%  escapechar=@,
+%  extendedchars=true,
+%  showstringspaces=false,
+%  columns=fixed,
+%  basewidth=0.49em,
+%  frame=single,
+%  framesep=2mm,
+%  xleftmargin=2mm,
+%  xrightmargin=2mm,
+%  framerule=0.5pt,
+%  tabsize=2,
+%}
+\graphicspath{{figure/}}
+
+% List of files to be processed
+\includeonly{
+  introduction,
+}
+
+\newenvironment{mydescription}%
+{ \begin{description}%
+%	{$\bullet$}%
+	{\setlength{\labelwidth}{30pt}%
+	 \setlength{\leftmargin}{35pt}%
+	 \setlength{\itemsep}{\parsep}}}%
+{ \end{description} }
+\newenvironment{quoteAbnt}%
+{\list{}{\leftmargin=0.3in\rightmargin=0.0in}\item[]}%
+{\endlist}
+\sloppy
+
+
+\begin{document}
+
+
+
+% An example of the Portuguese structure follows:
+\ufopthesis{
+    author={Lucas Sousa Lima},
+    university={Universidade Federal de Ouro Preto},
+    portuguesetitle={A evolu��o de softwares livres},
+    portuguesebrokentitle={A evolução de softwares livres},
+    portuguesecourse={Bacharelado em Ciência da Computação},
+    portugueseshortcourse={Ciência da Computação},
+    address={Ouro Preto},
+    date={2017-03}, % ano-mês
+    logo={brasao},
+    advisor={Amanda Sávio Nascimento e Silva}{Dra.}{Universidade Federal de Ouro Preto},
+    advisorT={Amanda Sávio Nascimento e Silva},
+    %coadvisor={Fulano de Tal}{Msc.}{Universidade Federal de Ouro Preto},
+    %coadvisorT={Fulano de Tal},
+    member={}{Dr.}{Universidade Federal de Ouro Preto},
+    member={}{Msc.}{Universidade Federal de Ouro Preto},
+    portugueseabstract={resumo.tex},
+    abstract={abstract.tex},
+    %dedication={dedicatoria.tex},
+    %ack={agradecimentos.tex},
+}
+\input{introduction}
+\input{background}
+\input{relatedWork}
+\input{development}
+\input{conclusion}
+%\input{appendix}
+
+
+\bibliography{references.bib}
+%escolher um dos estilos abaixo (ou outro) que preferir para citações. 
+%\bibliographystyle{plain}
+%\ufopbibliography{references.bib}
+\end{document}

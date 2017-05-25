@@ -1,0 +1,70 @@
+\chapter{Desenvolvimento}
+\label{chapter:desenvolvimento}
+
+Este capítulo aborda os seguintes tópicos:
+\begin{itemize}
+\item Na Seção 3.1, descrevemos a metodologia utilizada.
+\item Na Seção 3.2, os resultados são mostrados e discutidos.
+\end{itemize}
+
+\section{Métodos}
+
+Foi planejado e realizado um estudo que visa avaliar estado manutenibilidade
+do Linux Kernel, utilizando o sofware SonarQube para a medição. Os
+requerimentos necessários pelo método SQALE foram as fornecidas pelo
+plugin \textbf{sonar-cxx\cite{Sonarcxx2016}}. O software realiza
+uma leitura completa do código fonte da aplicação a ser analisada,
+identificando os trechos não adequados de acordo com os requerimentos
+definidos. Para cada não conformidade encontrada, há uma função de
+remediação definida com o tempo estimado de remediação cada ocorrência
+encontrada. Foram consideradas 6 versões de lançamento estáveis foram
+analisadas dentro das versões mais recentes, procurando avaliar o
+estado atual da manutenibilidade do software. 
+
+\section{Resultados e Discussão}
+
+\begin{table}[h]
+\begin{centering}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline 
+{\scriptsize{}Característica/Versão} & {\scriptsize{}3.19} & {\scriptsize{}4.0} & {\scriptsize{}4.1} & {\scriptsize{}4.2} & {\scriptsize{}4.3} & {\scriptsize{}4.4}\tabularnewline
+\hline 
+\hline 
+{\scriptsize{}Número de Linhas} & {\scriptsize{}17.396.102 } & {\scriptsize{}17.557.054 } & {\scriptsize{}17.724.734 } & {\scriptsize{}18.486.941 } & {\scriptsize{}18.766.571 } & {\scriptsize{}19.003.936 }\tabularnewline
+\hline 
+{\scriptsize{}Debito Técnico} & {\scriptsize{}311d} & {\scriptsize{}309d} & {\scriptsize{}330d} & {\scriptsize{}338d} & {\scriptsize{}342d} & {\scriptsize{}343d}\tabularnewline
+\hline 
+{\scriptsize{}Razão do Débito Técnico} & {\scriptsize{}0,7\%} & {\scriptsize{}0,7\%} & {\scriptsize{}0,7\%} & {\scriptsize{}0,7\%} & {\scriptsize{}0,7\%} & {\scriptsize{}0,7\%}\tabularnewline
+\hline 
+{\scriptsize{}Classificação de Manutenibilidade} & {\scriptsize{}A} & {\scriptsize{}A} & {\scriptsize{}A} & {\scriptsize{}A} & {\scriptsize{}A} & {\scriptsize{}A}\tabularnewline
+\hline 
+\end{tabular}
+\par\end{centering}
+\centering{}\caption{Avaliação das versões}
+\label{Avalia=0000E7=0000E3o}
+\end{table}
+
+A Tabela \ref{Avalia=0000E7=0000E3o} apresenta um histórico da evolução
+do Linux Kernel ao longo de 6 versões, da versão 3.19 à 4.4. As métricas
+apresentadas são as mesmas descritas na Tabela \ref{M=0000E9tricasSonarQube}.
+
+Como pode ser observado na Tabela \ref{Avalia=0000E7=0000E3o}, o
+número de linhas cresce a cada lançamento. Pode-se supor que o constante
+desenvolvimento de novos recursos, como novos \emph{drivers }de dispositivos
+e seja responsável por tal aumento. O valor absoluto do Débito Técnico
+também parece crescer a cada lançamento, tendo a ultima versão analisada
+o maior volume encontrado. A primeira vista, o valor de débito técnico
+parece bastante elevado, porém, levando em conta o número de linhas
+do projeto e estimando um custo de desenvolvimento para cada linha,
+assim como oferecido na Tabela \ref{M=0000E9tricasSonarQube}, podemos
+avaliar o Débito Técnico total do projeto como baixo. Por tal razão,
+o projeto do Linux Kernel recebe classificação de manutenibilidade
+A, a mais alta dentro da escala estabelecida pelo SonarQube.
+
+Diante destes resultados, pode-se supor que a manutenibilidade do
+projeto foi mantida graças a estrutura organizacional do projeto.
+Mantendo orientações de estilo de desenvolvimento e garantindo que
+elas sejam cumpridas através do seu processo de revisão, os desenvolvedores
+mantém o controle da forma como o código evolui. 
+
+

@@ -1,0 +1,514 @@
+\chapter{Fundamentação Teórica}
+\label{chapter:fundamentos}
+
+%\cite{schach2002maintainability} analisaram 365 versões sequencias
+%do Linux (da versão 1.0 a versão 2.4). Para cada versão, eles contaram
+%o número ocorrências de acoplamentos globais assim como definidos
+%em \cite{offutt1993software}, entre 17 módulos (arquivos executáveis
+%.c) e todos os outros módulos naquela versão do Linux. Os autores
+%encontraram que o número de ocorrências de acoplamento global cresce
+%exponencialmente com o número da versão. Por outro lado, os autores
+%também encontraram que o número de linhas de código crescia apenas
+%linearmente a cada versão. Com estes resultados, os autores argumentam
+%que a menos que o projeto seja reestruturado visando um mínimo de
+%acoplamentos globais, as dependências introduzidas pelo acoplamento
+%global tornaria o Linux difícil de ser mantido sem a introdução de
+%regressões.
+%
+%Em \cite{israeli2010linux}, um estudo da evolução do Linux Kernel
+%é realizado considerando as Leis de Lehman\cite{lehman1979understanding},
+%que regram a evolução de softwares do tipo E. Softwares do tipo E
+%são definidos como sistemas escritos para efetuar tarefas do mundo
+%real; como o sistema deve se comportar está diretamente relacionado
+%ao seu contexto de funcionamento, devendo ser também capaz de se adaptar
+%aos requerimentos e circunstâncias possivelmente variáveis de tal
+%contexto. O estudo conclui que apesar da 7\textsuperscript{a }lei
+%predizer redução da manutenibilidade do código com o tempo, ela é
+%contrariada pelo contínuo aumento de utilidade aos usuários e um aumento
+%consistente da classificação da manutenibilidade de acordo com a métrica
+%utilizada pelos autores( Índice de manutenibilidade Oman\cite{oman1994construction}).
+%De acordo com os autores, o trabalho contínuo no Linux preveniu o
+%declínio da manutenibilidade.
+%
+%\section{Fundamentação teórica}
+%
+%Neste capítulo, são descritos os conceitos fundamentais para entendimento
+%deste trabalho, a saber. O capítulo é organizado da seguinte forma:
+%\begin{itemize}
+%\item Na Seção 2.1, é apresentada a definição de Manutenibilidade.
+%\item Na Seção 2.2, uma visão geral do processo de contribuição ao Linux
+%Kernel é descrita, assim como oferecida pela literatura. 
+%\item Na Seção 2.3, o método SQALE(Software Quality Assessment based on
+%Life Cycle Expectations) para avaliação de qualidade de código é descrito. 
+%\item Na Seção 2.4, a ferramenta SonarQube, que implementa medições conforme
+%conceitos do SQALE.
+%\end{itemize}
+\section{As Leis de Lehman}
+
+Vários modelos presentes na literatura dividem o ciclo de vida do software em duas partes: o desenvolvimento até o lançamento inicial, e sua manutenção posterior. Porém, muitos sistemas reais, especialmente de tipo-E estão sujeitos à um desenvolvimento contínuo e continuam a evoluir durante sua existência. 
+Lehman estudou vários sistemas de larga escala e identificou as seguintes leis da evolução de software, descrevendo padrões comportamentais ao invés de questões técnicas\cite{lehman1979understanding,lehman1996laws}. Vários estudos proporcionaram suporte empírico as leis, em geral analisando o tamanho dos softwares cresce com o tempo[Citação]. Neste estudo, é realizada uma estudo quantificado seguindo as métricas utilizadas em \cite{israeli2010linux}.
+
+As leis de Lehman, na ordem em que são formuladas são:
+\begin{enumerate}
+	\item \textit{Contínua Mudança}: Um software de tipo-E deve ser continuamente adaptado, ou tornará-se progressivamente menos satisfatório em uso. A adaptação refere-se as circunstâncias de uso do software. Por exemplo, se uma prática de trabalho mudar, softwares que auxiliam nesta prática também deve mudar. 
+	\item \textit{Complexidade Crescente}: A medida que o software é alterado sua complexidade tende a aumentar e torna-se mais difícil de evoluir sem que haja esforço para manter e reduzir a complexidade. Esta lei complementa a primeira lei. Quando um programa é alterado, o foco do trabalho é a funcionalidade desejada. Assim as modificações são realizadas sem levar em consideração a arquitetura inicial. Isto implica que para manter o programa operacional, apenas investir na sua mudança não é suficiente. É necessário que cuidados para reduzir a complexidade para níveis aceitáveis a fim de facilitar ou simplesmente simplificar mudanças subsequentes.
+	\item \textit{Auto-regulação}: A evolução do software é regulada por avaliações. Caracteriza-se assim equilíbrio entre demandas por mudanças e restrições do que pode ser realmente feito. O passo da mudança passa assim a ser determinado, entre outros fatores, pela organização responsável pela manutenção. Esta lei também tem como consequência que os modelos da evolução pode ser utilizados como ferramentas de planejamento.
+	\item \textit{Conservação da estabilidade organizacional(Quantidade de trabalho constante)}: A quantidade de trabalho tende a ser constante durante o tempo de vida operacional do software. Isto reflete a dificuldade em mover pessoal, fazer mudanças de orçamento, etc. Grandes organizações que produzem software possuem inercia e tendem a continuar trabalhando da mesma maneira. 
+	\item \textit{Conservação de familiaridade}: Em geral, o crescimento do software tipo-E é restrito a necessidade mante-lo familiar. Manter a familiaridade é importante tanto para desenvolvedores quanto para usuários. Grandes alterações num curto espaço de tempo tem uma grande chance de trazer problemas.
+	\item \textit{Crescimento contínuo}: As capacidades funcionais de softwares de tipo-E devem ser continuamente melhoradas para manter a satisfação do usuário durante a tempo de vida do software. Esta é uma extensão da primeira lei: funcionalidade não é adaptada apenas para mudanças de condição, mas também incrementada com novas capacidades vindas de demandas de usuários e outros envolvidos como software.
+	\item \textit{Qualidade descrescente}: A menos que rigorosamente adaptado e evoluído para considerar mudanças operacionais do meio, a qualidade de um software de tipo-E parecerá diminuir. Esta lei é um corolário à primeira lei, e descreve os resultados de sua violação. Se o software não é adaptado, premissas utilizadas durante a sua construção tornarão progressivamente menos relevantes ou até mesmo inválidas, e seus efeitos latentes podem ser imprevisíveis.
+	\item \textit{Sistema de avaliações}: Os processos da evolução do software sistemas de avalição com múltiplos níveis, loops e agentes. Multiplos participantes estão envolvidos, incluindo gerentes, desenvolvedores, clientes e usuários. 
+\end{enumerate}
+
+Estas leis não são apenas uma descrição da evolução, mas sim uma tentativa de explicar os processos regendo a mesma. Elas não são necessariamente observáveis de forma direta no software resultante, porém o software pode refletir efeitos as leis postuladas. Lehman procurou tais efeitos para validar tais leis, e expandimos esta busca para outros grupos.
+
+%\section{Manutenibilidade de Software}
+%
+%Manutenibilidade pode ser definida como a capacidade de modificação
+%do produto de software. Modificações incluem correções, melhoramentos,
+%adaptações do software para modificações no seu contexto, requerimentos
+%e especificações funcionais\cite{van1993software}.
+%
+%Manutenção de software é sempre necessária quando pretende-se que
+%um software evolua com o tempo, adaptando-se ao contexto para o qual
+%foi construído ou perante ao não cumprimento de requerimentos, implicando
+%uma modificação no software para que obtenha o comportamento correto.
+%Em \cite{brooks1995mythical}, o autor afirma: ``O custo total de manutenção de um software largamente utilizado
+%é tipicamente 40\% ou mais do seu custo de desenvolvimento.''
+%Outros autores como em \cite{parikh1983tutorial}tem uma visão
+%mais pessimista, afirmando que de 45 à 60 porcento do tempo investido
+%em um software é gasto em manutenção. Manutenibilidade é uma qualidade
+%cada vez mais valorizada por desenvolvedores no desenvolvimento e
+%gerenciamento de software.
+%
+%Sendo um software livre, o Linux kernel depende de contribuidores
+%para que continue a evoluir. Portanto sua sobrevivência depende da
+%atração de novos contribuidores\cite{crowston2012free}. Possuir um
+%código com uma manutenibilidade comprometida torna o projeto mais
+%difícil de ser compreendido, dificultando a introdução de novos contribuidores.
+%Logo, manter uma boa manutenibilidade não é importante apenas para
+%o desenvolvimento, mas também para a atração de novos colaboradores.
+%\subsection{Dívida Técnica}
+%A metáfora ``Dívida Técnica"(do inglês \textit{Technical Debt}) foi utilizada a primeira vez pelo programador americano Ward Cunningham para explicar à \textit{stakeholders} de perfil não-técnico a necessidade do que chamamos hoje de ``refatoração "\cite{cunningham1993wycash}. Com suas palavras, a Dívida Técnica define-se como: 
+%\begin{quoteAbnt} Negligenciar o design é como pegar um empréstimo em dinheiro. Refatorar, é como pagar o débito. O desenvolvimento retardado por conta do débito pode ser visto como o pagamento dos juros no empréstimo. Cada minuto gasto em ``código-não-tão-correto'' conta com juros neste débito.\end{quoteAbnt}
+%
+%Desde sua descrição original o termo vêm sendo utilizado para como uma forma de explicar os vários fatores de aumento de custos ao longo do ciclo de vida de um software pela comunidade \cite{brown2010managing}.
+%Em certas situações, dívida não é necessariamente ``ruim": uma pequena quantidade de dívida técnica pode ajudar desenvolvedores a acelerar o processo de desenvolvimento a curto prazo.
+%Em todo caso, as consequências podem ser notáveis a longo prazo se o projeto for de grande complexidade(o que pode implicar em dívidas onerosas), levando ao desenvolvimento mais lento e redução da produtividade.
+%
+%Dívida técnica pode ser definida em várias dimensões diferentes, sintetizadas em \cite{tom2013exploration} como:
+%
+%\subsubsection{Dívida em código}
+%A dívida técnica frequentemente manifesta-se na forma de código mal escrito - ``cada \textit{hack}, \textit{workaround} ou parte do código ruim acumula dívida técnica"\cite{stopford2010}. Como exemplos, podem ser citados duplicação e complexidade desnecessárias, estilo inadequado que reduz a facilidade de leitura do código ou lógica mal organizada que torna o software suscetível falhas quando incrementado no futuro. Essencialmente, código que requer refatoração é uma forma de dívida em código.
+%
+%\subsubsection{Dívida arquitetural e \textit{design}}
+%Soluções rápidas de design e na arquitetura do projeto constituem outra forma de dívida técnica. Dívida de \textit{design} pode caracterizar-se na forma de uma solução rápida sem foco em qualidades como manutenibilidade e adaptabilidade ou \textit{design} subsequente fragmentado sem que haja uma visão do todo\cite{shriver2010}. De forma análoga, débito arquitetural pode ser resultado de soluções rápidas sub-ótimas ou soluções que tornam-se insatisfatórias quando tecnologias ou padrões de projeto tornam-se obsoletos.
+%
+%\subsubsection{Dívida de ambiente}
+%
+%Débito técnico pode também se manifestar no ambiente de uso da aplicação, que engloba processos relacionados ao desenvolvimento assim como \textit{hardware}, infraestrutura e aplicações de suporte. Processos manuais que podem ser automatizados são uma forma de dívida técnica que acumula-se na forma de custo de trabalho manual, além da falta de exploração das potenciais melhorias oferecidas pela automação. Componentes ultrapassados do desenvolvimento da aplicação ou ambiente de operação também contribui para a dívida técnica. Como exemplos, temos vulnerabilidades de segurança ocasionadas pela postergação de atualizações na infraestrutura ou componentes que chegaram ao fim da sua vida útil.
+%
+%\subsubsection{Dívida de distribuição de conhecimento e documentação}
+%
+%A falta da distribuição é outro aspecto da dívida técnica. Em \cite{slinker2008}, temos o seguinte exemplo:
+%\begin{quoteAbnt}
+%	Um grande sistema com milhões de linhas de código pode ser mantido sem grandes gastos. Um dos fatores que mantém seu custo baixo é a permanência de seus desenvolvedores originais no sistema. Eles sabem porque e como tudo foi feito. Assim, a dívida é afetada pelos membros da equipe. Suponhamos que a mesma equipe fique insatisfeita por algum motivo e todos saiam da empresa. De repente, a dívida técnica mudou de baixa para extremamente elevada!
+%\end{quoteAbnt}
+%
+%\subsubsection{Dívida em testes}
+%
+%Dívida técnica também pode representar a falta de testes levando a necessidade de testar manualmente o software antes de cada lançamento ou cobertura de testes insuficiente independentemente se o os testes são automatizados ou não. A dívida em testes  pode incluir custos adicionais associados a danos à marca quando consumidores são afetados por falhas críticas, à necessidade de implementar correções em um ambiente de produção, diagnosticar e corrigir regressões, e a necessidade de execução de testes manuais quando automação não está disponível.
+%
+%\subsection{Code Smells}
+
+\section{Complexidade de software}
+
+Complexidade de software é um produto natural do crescimento do número de recursos de um software. Com múltiplas interfaces e requerimentos complexos, a complexidade do software pode sair do controle tornando aplicações mais caras de serem mantidas e mais arriscado aprimora-las. Sem gerenciamento, a complexidade pode transformar aplicações em projetos grandes e pesados.
+
+Complexidade excessiva pode impactar negativamente na habilidade do desenvolvedor de gerenciar interações entre camadas e componentes em uma aplicação. Também pode tornar módulos difíceis de serem incrementados e testados. Cada parte do código deve ser verificada para determinar como a mesma afetara a robustez e flexibilidade da aplicação. Complexidade de software é uma das maiores preocupações de empresas que gerenciam diversas tecnologias e aplicações em uma arquitetura de vários níveis.
+
+A engenharia de software desenvolveu algumas medidas de complexidade software, sendo a mais comum a medida de complexidade de McCabe, também chamada de complexidade ciclamática. 
+
+\subsection{ Complexidade Ciclomática }
+
+A complexidade ciclomática mede o número de caminhos de execução em uma aplicação. O cálculo é realizado através de conceitos da teoria dos grafos, descritos a seguir.
+
+O número ciclomático de um grafo F com n vertices e p componentes conexos é:
+
+\[ v(G) = e - n + p \]
+
+Teorema 1: em um grafo conexo G, o número ciclomático é igual ao número máximo de circuitos independentes. 
+
+O teorema acima é aplicado da seguinte forma: dado um programa, um grafo direcionado é associado ao mesmo possuindo pontos de início e fim únicos. Cada nó no grafo corresponde a um bloco de código no programa onde há um fluxo sequencial e cada aresta corresponde a ramificações no programa (também conhecido como grafo de fluxo de  controle). Assume-se que cada nó pode ser alcançado partido do ponto de entrada, e todos os nós levam ao ponto de saída. 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../../controle_de_fluxo}
+	\caption{Exemplo de grafo de controle de fluxo}
+	\label{fig:grafo-de-controle-de-fluxo}
+\end{figure}
+
+
+A complexidade ciclomática de um programa é igual ao número de pontos de decisão(como expressões \textit{if} ) contidos no programa, somados a um. Porém, só se pode afirmar o mesmo para pontos de decisão contados no nível mais baixo, em codificação de máquina. Decisões envolvendo predicados compostos, como aqueles encontrados em linguagens de alto nível devem ser contados em termos das variáveis de predicado envolvidas, como no exemplo:
+\begin{verbatim}
+IF cond1 AND cond2 THEN ...
+\end{verbatim}
+contamos dois pontos de decisão, pois em nível de máquina é equivalente à:
+\begin{verbatim}
+IF cond1 THEN IF cond2 THEN ..
+\end{verbatim}
+%\subsection{O processo de desenvolvimento do Linux Kernel}
+%
+%Sendo um software livre, o desenvolvimento do Linux Kernel é público,
+%mantido e gerenciado a partir do sistema de gerenciamento de configuração
+%Git\cite{GitSCM2016}. Qualquer desenvolvedor pode contribuir para
+%o projeto. Neste contexto, chama-se de desenvolvedor qualquer pessoa
+%que envia um \emph{patch}(conjunto de modificações em um arquivo,
+%geradas pelo software de controle de versão \emph{Git}) para o projeto.
+%A organização do projeto é realizada através da \emph{Linux Kernel
+%Mailing List}(LKML)\cite{lkml2016}\emph{, }uma lista de discussão
+%onde os desenvolvedores podem comunicar-se e enviar suas contribuições.
+%Todas as contribuições devem ser enviadas através da LKML.
+%
+%Uma visão geral da estrutura do desenvolvimento é mostrada na Figura
+%\ref{fig:Estrutura-Organizacional}.Para distribuir a organização
+%do projeto, alguns desenvolvedores são responsáveis pela manutenção
+%de partes do sistema, sendo chamados de mantenedores. Todo arquivo
+%do projeto possui um mantenedor e faz parte de um conjunto maior,
+%chamado subsistema. Subsistemas agrupam partes do projeto com funcionalidades
+%relacionadas como comunicação de rede, \emph{drivers, }sistemas de
+%arquivos, entre outros. Todo subsistema é também possui um mantenedor
+%responsável.
+%
+%\begin{figure}[H]
+%\begin{centering}
+%\includegraphics[clip,width=0.7\paperwidth]{\string"figure/Linux Development Structure\string".png}
+%\par\end{centering}
+%\caption{Estrutura organizacional do Linux Kernel}
+%\label{fig:Estrutura-Organizacional}
+%\end{figure}
+%
+%Qualquer desenvolvedor pode enviar contribuições para qualquer arquivo
+%do projeto. Sua contribuição pode ser enviada através da LKML, enviando
+%o \emph{patch} ao mantenedor do arquivo o qual as contribuições dizem
+%respeito. Posteriormente, o mantenedor revisa o que foi enviado e
+%decide se a contribuição pode ser incorporada ao projeto. Como critério
+%de avaliação, o mantenedor leva em conta orientações de estilo de
+%código próprias do projeto\cite{codingstyle2016}. Caso a contribuição
+%seja aceita, ela é enviada ao mantenedor do subsistema o qual o arquivo
+%pertence. Quando o mantenedor do arquivo envia a contribuição para
+%o mantenedor do subsistema, ele adiciona sua ``assinatura'' informando
+%que tal \emph{patch }foi revisado por ele.
+%
+%Durante o processo, os repositórios dos subsistemas( repositórios
+%Git) são unificados, em um repositório chamado de \emph{linux-next}.
+%Assim, contribuições de diferentes subsistemas podem ser unidas e
+%testadas em conjunto. No topo do processo, encontra-se Linus Torvalds,
+%criador do projeto, para onde os mantenedores dos subsistemas enviam
+%as alterações que possuem.
+%
+%Todo o processo é construído baseado na chamada ``cadeia de confiança''.
+%Torvalds cofia nos mantenedores dos subsistemas, que por sua vez confiam
+%nos mantenedores dos arquivos. Isso não significa que é esperado que
+%os mantenedores não cometam erros, mas sim estarão disponíveis para
+%resolver quaisquer problemas provenientes de oriundos de contribuições
+%que aprovaram durante o ciclo.
+%
+%Com esta estrutura hierárquica garante, segundo os membros do projeto,
+%que toda contribuição é revisada por pelo menos duas pessoas: a que
+%a escreveu e a que a assinou. Assim, os desenvolvedores manter o projeto
+%dentro dos padrões estabelecidos, evitando a degradação da manutenibilidade
+%do código.
+%
+%\subsection{O método SQALE}
+%
+%O método SQALE (Software Quality Assessment based on Life Cycle Expectations)
+%tem como objetivo oferecer uma análise da qualidade do código fonte
+%da forma mais objetiva possível, e com o menor número possível de
+%``falsos positivos''. Para SQALE, avaliar a qualidade de uma aplicação
+%significa medir seu Débito Técnico. Débito Técnico é uma metáfora
+%usada pela primeira vez por Ward Cunningham\cite{cunningham1993wycash}.
+%Sua definição pode ser sumarizada citando-o:
+%\begin{quote}
+%\emph{``Negligenciar o design é como pegar um empréstimo em dinheiro.
+%Refatorar, é como pagar o débito. O desenvolvimento retardado por
+%conta do débito pode ser visto como o pagamento dos juros no empréstimo.
+%Cada minuto gasto em ``código-não-tão-correto'' conta com juros
+%neste débito.''}
+%\end{quote}
+%Para SQALE, a definição do Débito Técnico significa o custo necessário
+%para adequar o código fonte de um software de um determinado estado
+%à sua qualidade objetivo. Tal objetivo é definido pelo modelo de qualidade
+%através das características, sub-características e requerimentos,
+%definidos a seguir.
+%
+%O método define 4 conceitos chave, descritos brevemente a seguir e
+%detalhados nas seções subsequentes:
+%\begin{enumerate}
+%\item \textbf{O modelo de qualidade: }O Modelo de Qualidade SQALE é utilizado
+%para formular e organizar os requerimentos não-funcionais relacionados
+%a qualidade do código. O modelo é organizado em três níveis hierárquicos.
+%O primeiro nível é composto de características, o segundo de sub-características,
+%e o terceiro nível é composto de requerimentos relacionados aos atributos
+%internos do código fonte. Tais requerimentos variam de acordo com
+%o contexto e linguagem de programação utilizada\cite{letouzey2012sqale}.
+%\item \textbf{O Modelo de Análise: }O Modelo de Análise SQALE contém regras
+%utilizadas para normalizar as medições e violações relacionadas ao
+%código, além de outras regras para agregar os valores normalizados.
+%\item \textbf{Os Índices: }Todos os índices representam custos. Um índice
+%é representa o débito técnico total do projeto. Os outros índices
+%utilizados, são utilizados para analisar tal débito.
+%\item \textbf{Os Indicadores: }O método define três indicadores sumarizados.
+%Estes são utilizados como representação visual do Débito Técnico.
+%\end{enumerate}
+%Adicionalmente a tais conceitos, o método define 8 princípios sumarizados
+%em 3 itens, que visam obter uma estimativa precisa do Débito Técnico:
+%\begin{itemize}
+%\item Qualidade significa adequação aos requerimentos. Portanto, tais requerimentos
+%devem ser previamente definidos.
+%\item O método analisa a distância de adequação aos requerimentos, considerando
+%o custo de remediação necessário para trazer o código à conformidade.
+%\item O método soma todos os custos de remediação para calcular os indicadores
+%de qualidade.
+%\end{itemize}
+%O método é detalhado nos parágrafos seguintes.
+%
+%\subsubsection{O Modelo de Qualidade SQALE}
+%
+%O modelo de qualidade do método SQALE contém propriedades internas
+%desejadas do código, no contexto da avaliação. Em outras palavras,
+%SQALE requer que projetos ou organizações estabeleçam sua própria
+%definição concreta de ``código correto''. Desta forma, pode-se definir
+%de forma clara em seus respectivos contextos o que é gera débito ou
+%não.
+%
+%A definição de código correto tipicamente inclui nível de implementação,
+%e convenções de nomenclatura e apresentação. Também devem ser inclusos
+%requerimentos arquiteturais e estruturais. Este modelo possui 4 propriedades
+%importantes:
+%\begin{itemize}
+%\item Este é um modelo de requerimentos, não um conjunto de melhores práticas
+%de implementação.
+%\item O modelo é construído levando em conta o ciclo de vida do código fonte.
+%\item É estruturado em níveis hierárquicos.
+%\item Leva em conta tanto o ponto de vista do desenvolvedor quando do usuário.
+%\end{itemize}
+%As características básicas do modelo são definidas com base no ciclo
+%de desenvolvimento de um arquivo contendo código fonte. Tal organização
+%dos requerimentos é organizada sequencialmente como representada da
+%Figura \ref{N=0000EDveis-Sqale} dos níveis mais baixos como a ação
+%de escrita do código, testes, modificações e as qualidades associadas
+%a cada ação.
+%
+%O modelo em camadas apresentado na Figura \ref{N=0000EDveis do modelo SQALE}
+%é o resultado final desta abordagem. O modelo pode ser adaptado levando
+%em conta o ciclo de vida do código fonte a ser analisado.
+%
+%\begin{figure}
+%\begin{centering}
+%\includegraphics[width=0.7\paperwidth]{\string"figure/O ciclo de vida SQALE\string".png}
+%\par\end{centering}
+%\centering{}\caption{Ciclo de desenvolvimento de arquivo no modelo de qualidade SQALE}
+%\label{N=0000EDveis-Sqale}
+%\end{figure}
+%
+%Nesta estrutura, uma sub-característica ou um requerimento nunca é
+%duplicado em nenhum nível. Utilizando um requerimento e uma sub-característica
+%apenas uma vez é uma regra essencial do Modelo de Qualidade SQALE.
+%Esta regra se aplica para qualquer requerimento identificado na definição
+%de ``código correto''. A Figura \ref{N=0000EDveis 2 e 3}, é mostrado
+%um exemplo com requerimentos dizendo respeito a determinadas sub-características,
+%também relacionadas a uma característica.
+%
+%
+%\subsubsection{O Modelo Análise SQALE}
+%
+%Como descrito anteriormente, para o método SQALE analisar o código
+%fonte é análogo a medir a distância do estado no código durante a
+%medição à sua qualidade objetivo. Esta distância permite normalizar
+%toas as medições internas em uma escala comum. Para realizar a medição,
+%o Modelo de Analise SQALE utiliza um índice de remediação associado
+%a cada componente do código fonte (módulos, arquivos ou classes).
+%O índice de remediação representa o custo das ações de remediação
+%necessárias para corrigir as violações detectadas no componente, em
+%relação aos requerimentos do modelo. Como o tal índice representa
+%um custo, a consolidação dos índices consiste na adição de informações
+%uniformes.
+%
+%\begin{table}
+%\begin{centering}
+%\begin{tabular}{|>{\centering}p{0.15\textheight}|c|>{\centering}p{0.1\textheight}|}
+%\hline 
+%Requerimento & Detalhes da Remediação & Função de Remediação\tabularnewline
+%\hline 
+%\hline 
+%Não há bloco de instrução comentado. & Remover, não há impacto no código compilado & 2 minutos por ocorrência\tabularnewline
+%\hline 
+%A indentação do código deve seguir uma padrão consistente & Ajustar com auxílio de recursos de IDEs & 2 minutos por ocorrência\tabularnewline
+%\hline 
+%Código deve sobrescrever tanto o método ``equals'' quanto ``hashcode'' & Escrever código e teste & 1h por ocorrência\tabularnewline
+%\hline 
+%Todos os arquivos possuem pelo menos 70\% de cobertura de testes & Escrever testes adicionais & 20 minutos por linha não não coberta para alcançar 70\% de cobertura\tabularnewline
+%\hline 
+%Não há trechos clonados de 100 palavras ou mais & Refatorar com IDE e escrever testes & 20 minutos por ocorrência\tabularnewline
+%\hline 
+%\end{tabular}
+%\par\end{centering}
+%\caption{Exemplo de Funções de Remediação}
+%\label{Tabela de remedia=0000E7=0000E3o}
+%\end{table}
+%
+%Custos de remediação são calculados associando-se Funções de Remediação
+%a todos os requerimentos do Modelo de Qualidade. Estas devem ser estabelecidas
+%e calibradas pelo projeto ou organização. Elas dependem principalmente
+%nas atividades necessárias para resolver uma violação. Por exemplo,
+%ajustar uma linha de código com indentação incorreta leva o mesmo
+%esforço de corrigir um defeito estrutural do código. O conjunto completo
+%das Funções de remediação é um Modelo de estimativa de Débito Técnico.
+%A Tabela \ref{Tabela de remedia=0000E7=0000E3o} mostra um exemplo
+%de funções de remediação, com as unidades representadas em tempo de
+%desenvolvimento. Cada requerimento, como o ``Não há um bloco de instrução
+%comentado'' possui uma remediação detalhada e um tempo estimado de
+%remediação, dado pela Função de Remediação.
+%
+%\begin{figure}
+%\begin{centering}
+%\includegraphics[width=0.7\paperwidth]{\string"figure/Exemplo de remediacao\string".png}
+%\par\end{centering}
+%\centering{}\caption{Ciclo de desenvolvimento de arquivo no modelo de qualidade SQALE}
+%\label{Exemplo de calculo de remedia=0000E7=0000E3o}
+%\end{figure}
+%
+%
+%\subsubsection{Os Índices SQALE}
+%
+%O índice mais importante definido pelo método é o índice de qualidade
+%global: para cada elemento dos artefatos do código fonte, o índice
+%de remediação relacionado a todas as características do Modelo de
+%Qualidade podem ser estimadas adicionando todos os índices de remediação
+%relacionados a todos os requerimentos do Modelo de Qualidade. Tal
+%índice é chamado de Indice de Qualidade SQALE(SQI). O SQI representa
+%o Débito Técnico do código fonte analisado. A precisão do resultado
+%dependo do nível de detalhes das Funções de Remediação definidas.
+%
+%Os índices de remediação e o Débito Técnico podem ser calculados em
+%unidades de tempo, esforço ou unidades monetárias.
+%
+%Para cada elemento dos artefatos do código fonte, o custo de remediação
+%relacionado a uma determinada característica pode ser estimado somando
+%todos os índices de remediação para os requerimentos da característica.
+%Os índices das características SQALE são os seguintes:
+%\begin{itemize}
+%\item Índice de Testabilidade: STI
+%\item Índice de Confiabilidade: SRI
+%\item Índice de Mutabilidade: SCI
+%\item Índice de Eficiência: SEI
+%\item Índice de Segurança: SSI
+%\item Índice de Manutenibilidade: SMI
+%\item Índice de Portabilidade: SPI
+%\item Índice de Reusabilidade: SRuI
+%\end{itemize}
+%\begin{figure}
+%\begin{centering}
+%\includegraphics[width=0.7\paperwidth]{\string"Niveis 2 e 3 do modelo SQALE\string".png}
+%\par\end{centering}
+%\centering{}\caption{Detalhes dos níveis 2 e 3 do Modelo de Qualidade SQALE}
+%\label{N=0000EDveis 2 e 3}
+%\end{figure}
+%
+%O método também define índices de densidade como a densidade de Débito
+%Técnico, que permite a comparação do Débito Técnico de produtos de
+%diferentes tamanhos.
+%
+%\subsubsection{Indicadores SQALE}
+%
+%O método também define indicadores, úteis para análise. Neste trabalhos
+%focamos apenas no indicador de Classificação. O indicador de Classificação
+%oferece uma abstração de mais alto nível baseada na razão entre o
+%Débito Técnico e o custo de desenvolvimento. O método requer a definição
+%de uma escala, como a apresentada na Figura \ref{Escala SQALE}. A
+%escala divide a classificação em 5 níveis, sendo melhor classificados
+%aqueles com a menor razão entre o Débito Técnico e o custo de desenvolvimento.
+%
+%\begin{figure}
+%\begin{centering}
+%\includegraphics{\string"Escala SQALE\string".png}
+%\par\end{centering}
+%\centering{}\caption{Exemplo de Escala SQALE}
+%\label{Escala SQALE}
+%\end{figure}
+%
+%
+%\subsection{Ferramentas de Análise utilizadas.}
+%
+%Para realizar a análise, foram utilizados o software SonarQube\cite{SonarQube2016}.
+%O SonarQube é uma plataforma de qualidade de código open source, que
+%oferece uma imagem da qualidade do código. A ferramenta é utilizada
+%por mais de 50.000 empresas em todo mundo, com cerca de 2 milhões
+%de usuários\cite{SonarQubeUsage2016}. O SonarQube possui diversas
+%análises, mas focamos nossa análise na sua avaliação da manutenibilidade,
+%que utiliza o método SQALE para avaliação de débito técnico. A Tabela
+%\ref{M=0000E9tricasSonarQube} descreve as métricas utilizadas pelo
+%software, como sua definição de indicadores e método de cálculo de
+%razão de débito técnico.
+%
+%\begin{table}
+%\begin{centering}
+%\begin{tabular}{|c|>{\centering}p{0.6\textwidth}|}
+%\hline 
+%Nome & Descrição\tabularnewline
+%\hline 
+%\hline 
+%\emph{Code smells} & Número de ``\emph{Code Smells}'' encontrado\tabularnewline
+%\hline 
+%Classificação dos Indicadores. & Classificação dada a um projeto relacionada a razão do débito técnico.
+%
+%A escala é definida como:
+%
+%A=0-0.05, B=0.06-0.1, C=0.11-0.20, D=0.21-0.5, E=0.51-1
+%
+%Em outras palavras, pode-se dizer que o custo de remediação total 
+%
+%é:
+%\begin{itemize}
+%\item <= 5\% Do tempo que já foi investido na aplicação, sua classificação
+%é A
+%\item Entre 6\% e 10\%, B
+%\item Entre 11\% e 20\%, C
+%\item Entre 21\% e 50\%, D
+%\item Qualquer valor acima de 50\%, E
+%\end{itemize}
+%\tabularnewline
+%\hline 
+%Débito Técnico & Esforço necessário para resolver todos os problemas de manutenibilidade,
+%armazenados em minutos.\tabularnewline
+%\hline 
+%Razão do débito Técnico & \begin{raggedright}
+%Razão entre o custo de desenvolvimento do software e o custo para
+%resolver seus problemas. A formula para calculo é:
+%\par\end{raggedright}
+%\begin{quote}
+%Custo de Remediação / Custo de Desenvolvimento
+%\end{quote}
+%\begin{raggedright}
+%Podendo ser reescrito como:
+%\par\end{raggedright}
+%\begin{quote}
+%Custo de Remediação /(Custo de desenvolvimento de 1 linha de código
+%{*} Numero de linhas de código)
+%\end{quote}
+%\raggedright{}O valor do custo para desenvolver uma linha de código
+%é definido como 0.06 dias.\tabularnewline
+%\hline 
+%\end{tabular}
+%\par\end{centering}
+%\caption{Métricas do SonarQube}
+%\label{M=0000E9tricasSonarQube}
+%\end{table}
+%
+%O SonarQube utiliza também os chamados \emph{Code Smells} para o avaliação
+%da manutenibilidade. \emph{Code Smells} são sintomas no código fonte
+%de um programa que possivelmente indicam problemas mais profundos,
+%como indução a erros de programação ou possibilidades de comportamento
+%inesperado. Estes são fatores importantes que contribuem com o Débito
+%Técnico e possivelmente afetando negativamente a manutenibilidade
+%do código\cite{tufano2015and}.

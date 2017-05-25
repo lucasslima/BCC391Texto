@@ -1,0 +1,68 @@
+\chapter{Introdução}
+\label{chapter:intro}
+
+%Expor o tema\footnote{Um tema expressa a idéia central da pesquisa, aquilo que irá identificar o objeto de estudo da pesquisa ou a intenção do autor~\cite{Booth03,Denscombe2012}.} geral da monografia e fornecer as motivações contextuais que levaram o autor a conduzir o trabalho (e.g., dissertar sobre a importância e relevância, científica e/ou pra sociedade, do estudo/pesquisa que se pretende fazer de modo geral e/ou para a localidade/região)~\cite{Booth03,katz2009,Denscombe2012}. Além disso, nesta seção, podem ser apresentados, de forma sucinta, a definição de conceitos essenciais para o entendimento do trabalho. 
+
+Nos últimos 10 anos, Software Livre (Free/Libre Open-Source    Software FLOSS) passou de apenas uma curiosidade acadêmica para um dos maiores focos da comunidade acadêmica. Existem hoje milhares de projetos FLOSS, em diversas áreas de aplicação. Devido aos seus respectivos tamanhos o sistema operacional Linux e o Servidor Web Apache são os mais conhecidos, mas centenas de outros são largamente utilizados, incluindo projetos que integram a infraestrutura da internet (e.g. sendmail, bind), aplicações voltadas à usuários(e.g., Mozilla Firefox, LibreOffice), compiladores e interpretadores de linguagens de programação(e.g. Perl, Python, gcc), ambientes de desenvolvimento integrado (e.g., Eclipse) ou até mesmo softwares empresariais (e.g., eGroupware, openCRX).
+
+
+
+Enquanto FLOSS pode ser desenvolvido da mesma forma de software proprietário, muitos projetos são desenvolvidos por times organizacionalmente e geograficamente distribuídos, no que é descrito como desenvolvimento comunitário[Lee and Cole 2003]. Em alguns projetos, uma determinada organização toma a liderança na coordenação dos esforços da comunidade[FITZGERALD 2006], como a fundação APACHE, foco de estudo deste trabalho, apesar de vários projetos existirem fora de quaisquer estrutura organizacional. Centrais como \textit{Github} e \textit{SourceForge} são frequentemente utilizados para organizar projetos FLOSS. Embora empresas tem aumentado consideravelmente sua participação em projetos FLOSS assim como a contribuição de empregados contratos para trabalhar em tais projetos[Lakhani e Wolf 2005], mesmo estas contribuições são disponibilizadas para a comunidade [Henkel 2006]. Assim, FLOSS pode ser considerado como um bem público produzido por meios privados [O'Mahony 2003]. A qualidade destes produtos é o foco deste trabalho.
+
+
+Outra característica importante de FLOSS desenvolvidos pela comunidade caracteriza-se pelo fato dos desenvolvedores contribuírem como voluntários, sem remuneração; outros são remunerados por seus empregadores para trabalhar no projeto, mas não são pagos diretamente pelo mesmo. Adicionalmente, o risco de \textit{"forking"} (criação de um projeto independente baseado na mesma base de código), apesar de incomum e desencorajado, limita a capacidade de seus líderes de disciplinar os membros. Tais características fazem equipes de desenvolvimento FLOSS exemplos extremos de times auto-organizáveis distribuídos, consistentes com as condições encontradas por várias empresas quando recrutando e motivando profissionais ou desenvolvendo times distribuídos.
+Como resultado, FLOSS se tornou uma parte integral da infraestrutura da sociedade moderna, tornando fundamental uma compreensão mais profunda de como se desenvolve.
+
+%\section{Definição do Problema}
+
+
+
+\section{Definição do Problema e Justificativas}
+
+A compreensão do movimento FLOSS tornou-se importante pela sua própria dimensão\cite{crowston2012free}. FLOSS é hoje considerado um grande movimento social, envolvendo um estimado de 800,000 programadores ao redor do mundo assim como um fenômeno comercial envolvendo um grande número de empresas de desenvolvimento de software de várias tamanhos, desde startups até empresas bem estabelecidas. Do outro lado, milhões  de usuários tornaram-se dependentes de sistemas FLOSS como Linux, além de que a Internet em si é altamente dependente de ferramentas desenvolvidas pelo movimento. Estudos recentes estimam que 87\% dos negócios situados nos Estados Unidos utilizam FLOSS. Estima-se que o custo para recriar a quantidade de código produzido pelo movimento FLOSS em 12 bilhões de euros. Tal base de código vem dobrando a cada 18 à 24 meses nos últimos 8 anos, e há projeções para indicar que continuará a crescer por vários anos\cite{ghosh2007economic}. 
+
+Apesar de vários estudos terem abordado o movimento FLOSS, revisões bibliográficas da literatura previamente realizadas\cite{crowston2012free} mostram que 
+há um grande número de trabalhos publicado visando a análise organizacional do projeto ou grupo em questão, com apenas 7\% dos trabalhos focados nos artefatos produzidos pelos mesmos. 
+
+Muitos FLOSS caem na classificação de Lehman como softwares de tipo E\cite{}(\textit{E-type Systems}). Estes sistemas tem como propósito modelar problemas do mundo real e através de seu uso, tornam-se parte do mundo que tentam modelar. Com o tempo, tais sistemas são modificados de acordo com novos requerimentos e mudanças desejadas por usuários, evoluindo de maneiras que não podem ser previstas ou especificadas previamente[REFERENCIA MALDITA]. Ele passam pelo chamado \textit{desenvolvimento perpétuo}, com novas versões de produção lançadas frequentemente. Mesmo que o desenvolvimento possa um dia chegar ao fim quando o uso do sistema é descontinuado, a mentalidade dos desenvolvedores é que o projeto irá progredir indefinidamente.
+
+Os estudos de Lehman sobre a evolução dos softwares tipo-E levaram a formulação de um conjunto de "leis" da evolução de software. Estas incluem observações como softwares que estão em constante uso inevitavelmente continuam a crescer, para se adaptarem ao ambiente. É importante também ressaltar que tais leis são gerais e não dependem da forma como o software estudado é desenvolvido. Tais leis foram validadas pelo estudo da evolução do tamanho de grandes sistemas comerciais como o IBM OS/360. 
+
+Tal ótica já foi utilizada em estudos de caso de grandes projetos como o Linux Kernel\cite{israeli2010linux}, verificando que nem todas as mencionadas leis são observadas em sua evolução. Assim, visamos expandir o estudo para outros projetos de software, para verificar se o mesmo comportamento se aplica a eles.
+
+
+\section{Objetivos}
+\subsection{Objetivo Geral}
+Este trabalho visa analisar a evolução do código dos projetos sob o cuidado da Apache Software Foundation através de métricas previamente utilizadas na literatura, e determinar se os projetos obedecem as Leis de Lehman sobre a evolução de software.
+
+\subsection{Objetivos Específicos}
+\begin{itemize}
+\item Realizar uma revisão das leis de Lehman para a evolução de software.
+\item Descrever de forma geral o a evolução dos softwares englobados pela organização.
+\item Realizar um estudo comparativo dos resultados encontrados com as conclusões de trabalhos anteriores.
+\end{itemize}
+
+
+\section{Organização do Documento}
+
+O restante deste documento é organizado da seguinte forma:
+
+
+No capítulo 2 é apresentada a fundamentação teórica do trabalho, revisando
+os principais conceitos relacionados a manutenibilidade de código, avaliação de débito técnico e evolução de software.
+
+No capítulo 3 uma revisão bibliográfica da literatura é apresentada, descrevendo estudos previamente realizados, suas conclusões e 
+contribuições.
+
+No capítulo 4 são descritas as métricas e medições realizadas nos projetos.
+%%\begin{itemize}
+%\item No Capítulo 2 é apresentada a revisão bibliográfica.
+%\item No Capítulo 3 são apresentadas as métricas e os resultados obtidos.
+%\item No Capítulo 4 são apresentadas as conclusões.
+%\end{itemize}
+
+% A caracterização do problema, as justificativas e as hipóteses podem ser incluídas na introdução, ou destacadas à parte, quando for o caso. 
+
+
+
+

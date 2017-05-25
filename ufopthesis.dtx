@@ -1,0 +1,1800 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2004,2005 by Vilar Camara Neto and Eduardo Freire Nakamura.
+% adapted for UFOP by David Menotti
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.2 of this license or (at your option) any later
+% version.  The latest version of this license is in:
+%
+%     http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of
+% LaTeX version 1999/12/01 or later.
+%
+% Currently this work has the LPPL maintenance status "maintained".
+%
+% The Current Maintainer of this work is Vilar Camara Neto.
+%
+% This work consists of the files ufopthesis.dtx and
+% ufopthesis.ins and the derived file ufopthesis.cls.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{ufopthesis.dtx}
+%</driver>
+%<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<class>\ProvidesClass{ufopthesis}
+%<*class>
+  [2005/07/24 v0.13 DCC/ufop class for thesis/dissertations and proposals]
+%</class>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{ufopthesis.dtx}
+\end{document}
+%</driver>
+% \fi
+
+% \CheckSum{1248}
+
+
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \changes{v0.13}{2005/07/24}{The approval sheet now shows the broken title.}
+% \changes{v0.12}{2005/07/21}{Bugs: arabic numbering in front matter (with
+%   ``easy way'') and no header in main matter (with command
+%   \string\ufopthesis).}
+% \changes{v0.11}{2005/06/21}{Typo: \string\ufopthesis was previously named
+%   \string\ufophesis; Front matter header/footer reformat; page numbering
+%   starts right after cover/title pages; \string\mainmatter is now automatic
+%   (see `nomainmatter' class option)}
+% \changes{v0.10}{2005/03/12}{Cover/title page reformat; added `centertitles'
+%   class option}
+% \changes{v0.09}{2005/03/10}{Extended the Portuguese/non-Portuguese
+%   integration}
+% \changes{v0.08}{2005/03/09}{Changed date format and document structure,
+%   especially to provide more integration between Portuguese and
+%   non-Portuguese parts}
+% \changes{v0.07}{2005/03/09}{Changed ``Thesis proposal'' to ``Thesis
+%   project''}
+% \changes{v0.06}{2005/03/07}{Corrected the bibliography header placement}
+% \changes{v0.05}{2005/02/22}{Added bibliography support}
+% \changes{v0.04}{2005/01/15}{Added `memhfixc' package auto-loading}
+% \changes{v0.03}{2005/01/15}{`twoside' option is working now}
+% \changes{v0.02}{2005/01/13}{Corrected small formatting bugs}
+% \changes{v0.01}{2004/12/09}{Initial version (first draft)}
+%
+% \GetFileInfo{ufopthesis.dtx}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_}
+% \DoNotIndex{\`~}
+% \DoNotIndex{\ }
+% \DoNotIndex{\z@,\m@ne,\@ne,\@ifpackageloaded,\@ifundefined,\@temp}
+% \DoNotIndex{\@undefined}
+% \DoNotIndex{\addtocount,\advance,\AtBeginDocument,\begin,\bgroup}
+% \DoNotIndex{\begingroup,\bibname,\c,\catcode,\closein,\centering}
+% \DoNotIndex{\chapter,\chaptermark,\checkandfixthelayout,\cleardoublepage}
+% \DoNotIndex{\contentsname,\copypagestyle,\csname,\date,\DeclareOption}
+% \DoNotIndex{\define@key,\doublespace,\egroup,\end,\endcsname,\ExecuteOptions}
+% \DoNotIndex{\expandafter,\fi,\frontmatter,\gdef,\height,\hspace}
+% \DoNotIndex{\if,\if@twoside,\ifnum,\ifx,\includegraphics,\input}
+% \DoNotIndex{\languagename,\Large,\large,\leftmark,\let,\listfigurename}
+% \DoNotIndex{\listoffigures,\listoftables,\listtablename,\LoadClass}
+% \DoNotIndex{\loop,\mainmatter,\makeevenhead,\makeheadrule,\makeoddfoot}
+% \DoNotIndex{\makeoddhead,\MakeUppercase,\markboth,\markright,\maxsecnumdepth}
+% \DoNotIndex{\message,\newcommand,\newcounter,\newif,\normalrulethickness}
+% \DoNotIndex{\normalsize,\onehalfspace,\pagestyle,\par,\PassOptionsToClass}
+% \DoNotIndex{\ProcessOptions,\protect,\quad,\raisebox,\relax,\renewcommand}
+% \DoNotIndex{\repeat,\RequirePackage,\rightmark,\sectionmark,\setcounter}
+% \DoNotIndex{\setkeys,\setlrmarginsandblock,\setulmarginsandblock}
+% \DoNotIndex{\singlespace,\stretch,\tableofcontents,\textbf,\textit,\textsc}
+% \DoNotIndex{\textwidth,\thechapter,\thepage,\thesection,\title}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup,\vspace}
+%
+% \title{The \textsf{ufopthesis} class\thanks{This document corresponds to
+% \textsf{ufopthesis}~\fileversion, dated~\filedate.}}
+% \author{Vilar Camara Neto\qquad\qquad Eduardo Nakamura \\
+% \texttt{\{neto,nakamura\}@dcc.ufop.br}}
+% \date{July 24, 2005}
+%
+% \maketitle
+%
+% \StopEventually
+%
+% \section{Introduction}
+%
+% This file describes the class file |ufopthesis|, which is an unofficial class
+% to typeset master thesis and Ph.D.\@ dissertations for the Federal University
+% of Minas Gerais (ufop). This work is widely based on the original class
+% |ufopthes| made by student Eduardo Freire Nakamura, which is being used by
+% many other students to format their documents.
+%
+% As stated, this is an \emph{unofficial} class! At present, it's not endorsed
+% nor being supported in any way by the institution. As usual in these cases,
+% this class is provived in an ``as is'' basis, without guarantees of any type.
+% If you use |ufopthesis| for your document, please discuss the formatting with
+% your advisor and make the suggested adaptations/corrections/improvements. If
+% you think that the changes you made are interesting to other students, please
+% share the new version! But don't forget to increment the version number and
+% describe what did you do.
+%
+%
+% \section{How to use it}
+%
+% This section provides information necessary to use the |ufopthesis|
+% class. \emph{Please read it!} This is important. I've told you.
+%
+% Note that |ufopthesis| is based on |memoir|, which is a highly configurable
+% class. You may have to install it; please refer to Section
+% \ref{sec:memoirtips}, where I provide a very short description about
+% it. There are some important tips too.
+%
+%
+% \subsection{Important information to users of previous versions}
+%
+% If you've been using a previous version of the |ufopthesis| class and are now
+% upgrading to the current version, this subsection lists the structural
+% changes to the |ufopthesis| class from previous versions that affect the user
+% (you), like changes in the syntax of commands or options. If you are using
+% the |ufopthesis| class for the first time, this subsection isn't relevant to
+% you.
+%
+% \subsubsection{Changes introduced in version 0.11}
+%
+% \textbf{Important!} Previous versions have an unnoticed typo! The macro
+% |\ufopthesis| was named |\ufophesis| (i.e., without the \textbf{t}). This was
+% corrected from version 0.11 on. When upgrading, \emph{please} correct it in
+% your document.
+%
+% The |\mainmatter| command is now called automatically by the |\ufopthesis|
+% command, unless the |nomainmatter| class option is used.
+%
+% The header/footer format was changed: the section title doesn't appear
+% anymore, because the header got overloaded with much text. (Sometimes the
+% chapter and section titles overlapped.)
+%
+% Also, the page numbering starts right after cover/title pages. (In previous
+% versions, it started only in the table of contents.)
+%
+% \subsubsection{Changes introduced in version 0.10}
+%
+% The format of cover and title pages were changed. In fact, the difference
+% isn't only the presence/absence of the descriptive text: the author position
+% also changes.
+%
+% \subsubsection{Changes introduced in version 0.09}
+%
+% The options |portuguesetitle|, |portuguesebrokentitle|,
+% |portugueseuniversity| and |portuguesecourse| were created. They're only
+% important if you're writting the document in non-Portuguese. Also, the field
+% |department| ceased to exist (this information isn't used).
+%
+% \subsubsection{Changes introduced in version 0.08}
+%
+% Mainly, the format of the date provided by the |date=|\meta{date} option (to
+% the |\ufopthesis| command) or by the |\date|\marg{date} command was changed.
+% Instead of providing the textual date (like ``10 de janeiro de 2005'' or
+% ``January 10, 2005''), you must now provide the date as |yyyy-mm-dd| or
+% |yyyy-mm|. See Section~\ref{sec:ufopthesis} for more details.
+%
+%
+% \subsection{Class options}
+%
+% \newcommand{\defmark}{$\triangleright$}
+% \newcommand{\sep}{$\mid$}
+%
+% When using the |\documentclass| command, you can give some options to
+% customize the document appearance. The available options are listed below;
+% the symbol \defmark{} marks the default one.
+%
+% \begin{itemize}
+% \item |msc| \sep{} \defmark|phd|\par
+%   Defines if this document is a master thesis or a Ph.D.\@ dissertation.
+% \item |proposal| or |project|\par
+%   If one of these options is given, the document is a dissertation proposal
+%   or a thesis project. (No matter what option is given, the effect is the
+%   same: there is no ``dissertation project'' or ``thesis proposal''.)
+% \item |single| \sep{} \defmark|onehalf| \sep{} |double|\par
+%   Defines the default line spacing: single, 1\,\textonehalf{} or double.
+% \item |centertitles|\par
+%   By default, the preamble ``chapter'' texts (Abstract, Acknowledgment, Table
+%   of Contents, List of Figures/Tables) are left-aligned. If this option is
+%   given, these texts will be centered. Also affects the bibliography title if
+%   the |\ufopbibliography| command is used. This doesn't affect the alignment
+%   of any |\chapter| or |\chapter*| used throughout the document.
+% \item \defmark|showcover| \sep{} |hidecover|\par
+%   Enables or disables the cover page.
+% \item \defmark|showtitle| \sep{} |hidetitle|\par
+%   Enables or disables the title page.
+% \item \defmark|showapproval| \sep{} |hideapproval|\par
+%   Enables or disables the approval sheet.
+% \item \defmark|showabstract| \sep{} |hideabstract|\par
+%   Enables or disables the abstract page(s).
+% \item \defmark|showdedication| \sep{} |hidededication|\par
+%   Enables or disables the dedication page.
+% \item \defmark|showack| \sep{} |hideack|\par
+%   Enables or disables the acknowledgment page.
+% \item \defmark|showtoc| \sep{} |hidetoc|\par
+%   Enables or disables the Table of Contents.
+% \item \defmark|showlof| \sep{} |hidelof|\par
+%   Enables or disables the List of Figures.
+% \item \defmark|showlot| \sep{} |hidelot|\par
+%   Enables or disables the List of Tables.
+% \item \defmark|showall| \sep{} |hideall|\par
+%   Enables or disables all pages, as if all |show|* options were given. You
+%   can use the |hideall| option to speed up the compilation time during the
+%   document development phase, and switch to |showall| only to produce the
+%   final version.
+% \item |nomainmatter|\par
+%   The |\ufopthesis| macro calls the |\mainmatter| command after everything is
+%   done. (|\mainmatter| resets page numbering and alters its format to arabic
+%   --- 1, 2, 3, etc..) If you want to manually put extra material in the front
+%   matter --- i.e., to put pages while maintaining the roman page numbering,
+%   like a List of Algorithms or something similar ---, then you must use the
+%   |nomainmatter| option. In this case, \emph{don't forget} to use the
+%   |\mainmatter| command right before the first chapter. If you forget it, all
+%   page numbers will be in roman format.
+% \end{itemize}
+%
+%
+% \subsection{The very easy way}\label{sec:ufopthesis}
+%
+% All introductory pages --- cover, main title, approval sheet, abstracts,
+% dedication, table of contents, list of figures and list of tables --- can be
+% generated by one single command. No kidding. The magic command is
+% |\ufopthesis|, which receives all the information via
+% \meta{key}|=|\meta{value} pairs. The command call will look like:
+%
+% \begin{quote}
+% \begin{raggedright}
+% |\ufopthesis{|\\
+% |  title={The Thesis Title},|\\
+% |  author={Vilar Fiuza da Camara Neto},|\\
+% |  university={Universidade Federal de Minas Gerais},|\\
+% |  |\emph{other commands\ldots}\\
+% |}|
+% \end{raggedright}
+% \end{quote}
+%
+% What you do need now is a list describing every key/value pair that can
+% happen inside the |\ufopthesis| argument. Well, here it is:
+%
+% \begin{itemize}
+% \item |title|\marg{title}\par
+%   Defines the thesis/dissertation title.
+% \item |brokentitle|\marg{title}\par
+%   Defines the title that appears in the first two pages (cover and title
+%   page). This is optional; if you don't define \texttt{brokentitle}, the
+%   \texttt{title} text is used. The \texttt{brokentitle} option is provided
+%   because you can specify where are the line breaks (with double backslashes,
+%   |\\|), in the case of a long title that spans more than one line. Please
+%   see the description of the |\brokentitle| macro in page
+%   \pageref{macro:brokentitle} for more details.
+% \item |author|\marg{name}\par
+%   Defines the author name.
+% \item |university|\marg{name}\par
+%   Defines the university name.
+% \item |course|\marg{name}\par
+%   Defines the course name.
+% \item |portuguesetitle|\marg{title}\\
+%   |portuguesebrokentitle|\marg{title}\\
+%   |portugueseuniversity|\marg{name}\\
+%   |portuguesecourse|\marg{name}\par
+%   If you're writting your document in non-Portuguese, you need to provide the
+%   Portuguese versions of the title, university and name. These options
+%   provide the way to go. They work exactly like their counterparts without
+%   the |portuguese| prefix.
+% \item |address|\marg{address}\par
+%   Well, it's not the complete address, just the city and state to appear at
+%   the bottom of the title pages.
+% \item |date|\marg{date}\par
+%   Defines the document date in short format, \emph{always} as |yyyy-mm-dd| or
+%   |yyyy-mm| (the day isn't obligatory).\footnote{The format of the date has
+%   changed since version 0.08.} Note the order (year-month-day), the hyphen as
+%   the separator, and the use of 4-digit for the year.
+% \item |logo|\marg{file}\par
+%   Specifies a graphic file that contains the university logo. This appears at
+%   the top of the approval sheet.
+% \item |advisor|\marg{name}\marg{title}\marg{institution}\par
+%   Defines the advisor data. \meta{title} is something like
+%   ``\texttt{Ph.\~{}D.}'' or ``\texttt{M.\~{}Sc.}'' (please use a tilde after
+%   the first dot instead of a space --- this will look better).
+%   \meta{institution} is the university from where the advisor comes. If you
+%   use a single dot as the \meta{institution} argument --- e.g.,
+%   \texttt{advisor=}\marg{name}\marg{title}|{.}| ---, it's copied from the
+%   \texttt{university} value. The advisor name will appear in the approval
+%   sheet.
+% \item |coadvisor|\marg{name}\marg{title}\marg{institution}\par
+%   Defines the co-advisor data. The arguments are the same as
+%   \texttt{advisor}.
+% \item |member|\oarg{relationship}\marg{name}\marg{title}\marg{institution}%
+%   \par
+%   Defines another comitee member. You can use this key several times, one for
+%   each member. The arguments are the same as \texttt{advisor}, except that
+%   there's an optional \meta{relationship}: this is a text that will appear
+%   after the member name, in the approval sheet, \emph{always} in Portuguese.
+%   It's normally not used.
+% \item |abstract|\marg{filename}\par
+%   Defines a \texttt{.tex} file containing the abstract text in the native
+%   language. Don't use the |\section| command in this file.
+% \item |englishabstract|\marg{filename}\par
+%   Defines a \texttt{.tex} file containing the abstract text in English
+%   language. This option should be used only if your document is written in
+%   Portuguese and you want to provide an English-version of the abstract.
+%   Don't use the |\section| command in this file.
+% \item |portugueseabstract|\marg{filename}\par
+%   Defines a \texttt{.tex} file containing the abstract text in Portuguese
+%   language. This option should be used only if your document isn't written in
+%   Portuguese. Don't use the |\section| command in this file.
+% \item |dedication|\marg{filename}\par
+%   Defines a \texttt{.tex} file containing the dedication text. Don't use the
+%   |\section| command in this file.
+% \item |ack|\marg{filename}\par
+%   Defines a \texttt{.tex} file containing the acknowledgment text. Don't use
+%   the |\section| command in this file.
+% \end{itemize}
+%
+% Here's a complete example (for a document written in Portuguese):
+%
+% \begin{quote}
+% \begin{verbatim}
+% \ufopthesis{
+%   title={Protocolo para Verificação de Erros em Redes Totalmente
+%     Confiáveis},
+%   brokentitle={Protocolo para Verificação de Erros\\em Redes
+%     Totalmente Confiáveis},
+%   author={Vilar Fiuza da Camara Neto},
+%   university={Universidade Federal de Minas Gerais},
+%   course={Ciência da Computação},
+%   address={Belo Horizonte},
+%   date={2005-01-30},
+%   logo={img/brasao},
+%   advisor={Adamastor Pompeu Setúbal}{Ph.~D.}{.},
+%   coadvisor={Romualdo Freijó Quaresma}{Ph.~D.}{.},
+%   member=[Co-revisor]{Aristolfo Hostetten}{M.~Sc.}{Universidade
+%     Federal do Paraná},
+%   member={Isaías Fortunato de Oliveira Neto Jr.}{M.~Sc.}
+%     {Universidade Estadual de São João do Pirapora},
+%   member={Deodato Alípio Doberval Etrusco}{M.~Sc.}
+%     {Universidade de Vesúvio, Pompéia},
+%   abstract={resumo.tex},
+%   englishabstract={abstract.tex},
+%   dedication={dedicatoria.tex},
+%   ack={agradecimentos.tex},
+% }
+%\end{verbatim}
+% \end{quote}
+%
+% Note that here we used the |abstract| and |englishabstract| options to inform
+% the files containing the Portuguese and English texts, respectively. If
+% you're typing a document in English, this must change: you have to use
+% |abstract| to provide the English text and |portugueseabstract| to provide
+% the Portuguese one. And you must provide |portuguesetitle|,
+% |portuguesebrokentitle| (this is optional, as |brokentitle|),
+% |portugueseuniversity| and |portuguesecourse|.
+%
+% The following example illustrates the structure of |\ufopthesis| for a
+% document written in non-Portuguese:
+%
+% \begin{quote}
+% \begin{verbatim}
+% \ufopthesis{
+%   title={Protocol for Error-Verification inside Totally Error-Free
+%     Networks},
+%   brokentitle={Protocol for Error-Verification inside\\Totally
+%     Error-Free Networks},
+%   author={Vilar Fiuza da Camara Neto},
+%   university={Federal University of Minas Gerais},
+%   course={Computer Science},
+%   portuguesetitle={Protocolo para Verificação de Erros em Redes
+%     Totalmente Confiáveis},
+%   portuguesebrokentitle={Protocolo para Verificação de Erros\\
+%     em Redes Totalmente Confiáveis},
+%   portugueseuniversity={Universidade Federal de Minas Gerais},
+%   portuguesecourse={Ciência da Computação},
+%   address={Belo Horizonte},
+%   date={2005-01-30},
+%   logo={img/brasao},
+%   advisor={Adamastor Pompeu Setúbal}{Ph.~D.}{.},
+%   coadvisor={Romualdo Freijó Quaresma}{Ph.~D.}{.},
+%   member=[Co-revisor]{Aristolfo Hostetten}{M.~Sc.}{Universidade
+%     Federal do Paraná},
+%   member={Isaías Fortunato de Oliveira Neto Jr.}{M.~Sc.}
+%     {Universidade Estadual de São João do Pirapora},
+%   member={Deodato Alípio Doberval Etrusco}{M.~Sc.}
+%     {Universidade de Vesúvio, Pompéia},
+%   portugueseabstract={resumo.tex},
+%   abstract={abstract.tex},
+%   dedication={dedicatoria.tex},
+%   ack={agradecimentos.tex},
+% }
+%\end{verbatim}
+% \end{quote}
+%
+%
+% \subsection{The easy way}
+%
+% There's another way to build the pages: you can forget the magic
+% |\ufopthesis| macro and call a series of commands that defines each
+% information, and then some macros that build each page. It's a bit more
+% arduous, but you have more control over page ordering.
+%
+% The commands to define the document information have the same names and
+% arguments as the key/value pairs shown in the previous section: you call
+% |\title|\marg{title}, |\author|\marg{author}, and so on. The only exception
+% is the command
+% |\addtocomitee|\oarg{relationship}\marg{name}\marg{title}\marg{institution},
+% which corresponds to the |member| key (a command called |\member| sounds too
+% generic for me).
+%
+% After defining all information, you must call a macro to build each page. The
+% macros are shown in the following table:
+%
+% \begin{itemize}
+% \item |\makecoverpage| \par
+%   Creates the cover page, containing the author name, document title, address
+%   and date.
+% \item |\maketitlepage| \par
+%   Creates the title page. It's the same as the cover page, but includes a
+%   short description of the document.
+% \item |\makeapproval| \par
+%   Creates the approval sheet. This page lists every comitee member, leaving
+%   some inter-space to the signatures. Currently, this page is made in
+%   Portuguese, no matter what the document language is.
+% \item |\includeabstract|\oarg{title}\marg{filename} \par
+%   Includes an external file containing the abstract text. \meta{title} is the
+%   abstract title, which defaults to ``Abstract'' translated to the current
+%   language. (It may be used to include an alternative abstract written in a
+%   foreign language.)
+% \item |\includededication|\marg{filename} \par
+%   Includes an external file containing the dedication text.
+% \item |\includeack|\marg{filename} \par
+%   Includes an external file containing the acknowledgment text.
+% \item |\tableofcontents| \par
+%   Builds a table of contents.
+% \item |\listoffigures| \par
+%   Builds a list of figures.
+% \item |\listoftables| \par
+%   Builds a list of tables.
+% \end{itemize}
+%
+% After these commands, you must use the |\mainmatter| macro to reset page
+% numbering and configure it to be in arabic format (1, 2, 3, etc.).
+%
+%
+% \subsection{The hard way}
+%
+% Not yet implemented\ldots{} :-)
+%
+%
+% \subsection{The bibliography}
+%
+% You can use any bibliography system/style: the |ufopthesis| doesn't obligate
+% the adoption of any particular system.
+%
+% However, if you're using the Bib\TeX{} system (to manage |.bib| files and
+% compile them into |.bbl| files), you may be wondering about what style to use
+% (i.e., what should be the argument to |\bibliographystyle{}|?). Since there's
+% no official bibliography style adopted by the university (as far as we know),
+% here we provide a style which is heavily based on the traditional |apalike|
+% style: the |ufop| style (file |ufop.bst|). As the |ufopthesis.cls|, you must
+% put |ufop.bst| in a directory visible to the Bib\TeX{} system.
+%
+% The |ufopthesis| class also provides a command to automatically generate the
+% bibliography (see below).
+%
+% Again, if you adopt the provided style, the main rule still applies here:
+% please discuss the formatting with your advisor and make the suggested
+% adaptations/corrections/improvements.
+%
+% The easiest form of making the bibliography is using the |\ufopbibliography|
+% command. That's just it: there's no need to use |\bibliographystyle| nor
+% |\bibliography| commands. The format is:
+%
+% \begin{quote}
+% |\ufopbibliography|\oarg{options}\marg{bibliography-file}
+% \end{quote}
+% where \meta{bibliography-file} is the name of your |.bib| file without the
+% extension. So, if your reference database is stored in a file named
+% |myreferences.bib|, you must call |\ufopbibliography{myreferences}|.
+%
+% There are a bunch of possible \meta{options}, mostly related to the
+% formatting of the bibliography. The available options are:
+%
+% \begin{itemize}
+% \item |noauthorrepeat|\par
+%   If you have a sequence of bibliographic items written by the same authors,
+%   this options makes them to appear only once, in the first entry: the
+%   following ones show a triple-em-dash (e.g., ``---------'') in place of the
+%   names. (This can be customized: see below.)
+% \item |noauthorrepstring|\par
+%   When using the |noauthorrepeat| option, you can customize what appears in
+%   place of repeating authors. The default is a triple-em-dash (specified by a
+%   sequence of 9 hyphens). This option allows the customization. Example:
+%   |noauthorrepstring={Idem}| causes the string ``Idem'' to appear.
+% \item |nobreakitems|\par
+%   This option forbids a page break inside any bibliographic entry, i.e., the
+%   text lines of each item are kept together in the same page.
+% \item |bibauthorand|\par
+%   Defines the text that appears before the last author in the bibliography.
+%   The default is ``and'' (English) or ``e'' (Portuguese). Example: to specify
+%   an ampersand as the text, use |bibauthorand=\&|.
+% \item |citeauthorand|\par
+%   Defines the text that appears before the last author in the citations
+%   (e.g., when using |\cite|\marg{entry} in the main text).  The default is
+%   ``and'' (English) or ``e'' (Portuguese). Example: to specify an ampersand
+%   as the text, use |citeauthorand=\&|.
+% \item |authorformat|\par
+%   Defines the format of the author list. The default is none. Example: to put
+%   the author list in small caps, use |authorformat=\scshape|.
+% \item |titleformat|\par
+%   Defines the format of the title. The default is none. Example: to put the
+%   title in italics, use |titleformat=\itshape|.
+% \item |btitleformat|\par
+%   Defines the format of the booktitle (for |@incollection| and
+%   |@inproceedings| entries). The default is |\itshape| (italics).
+% \item |booktitleformat|\par
+%   Defines the format of the booktitle (for |@book|, |@inbook|, |@manual|,
+%   |@phdthesis|, and |@proceedings| entries). The default is |\itshape|
+%   (italics).
+% \item |journalformat|\par
+%   Defines the format of the journal name (for |@article| entries). The
+%   default is |\itshape| (italics).
+% \end{itemize}
+%
+% By default, certain things are automatically localized (currently, only to
+% English and Brazilian Portuguese languages): e.g., if you have an article
+% made by authors ``Michael J. Brooks and Berthold K. P. Horn'', they'll appear
+% as ``Brooks and Horn'' if your thesis is being written in English, or
+% ``Brooks e Horn'' if written in Portuguese. To use this default behaviour,
+% you don't need to specify any option: just provide the correct language to
+% the |babel| package.
+%
+% Finally, I \emph{strongly} recommend the use of the |natbib| package, to make
+% more professional-looking references. It's more than just a matter of
+% personal preference: I've seen advisors asking students to adopt |natbib|.
+%
+%
+% \subsection{Tips about the \texttt{memoir} class}\label{sec:memoirtips}
+%
+% As previously stated, this class is based on |memoir|, which must be present
+% on your system. If it isn't --- for instance, it complains about the absence
+% of the file |memoir.cls| --- you have to install it. If you have a MiK\TeX{}
+% distribution, this is quite easy: it's a matter of running the MiK\TeX{}
+% Package Manager, selecting ``memoir'' from the list and installing. You may
+% need administrative privileges to do so: consult the system administrator.
+%
+% Under Linux, the installation is not automated, but not hard at all. Download
+% all files from the corresponding directory on CTAN: the present working link
+% is
+%
+% \begin{quote}
+% |http://www.ctan.org/tex-archive/macros/latex/contrib/memoir/|
+% \end{quote}
+%
+% When the download is complete, open a terminal, |cd| to where the downloaded
+% files are and run
+%
+% \begin{quote}
+% |latex memoir.ins|
+% \end{quote}
+%
+% which will create the so-wanted |memoir.cls| file. Then run |latex| again,
+% this time over |memoir.dtx|:
+%
+% \begin{quote}
+% |latex memoir.dtx|
+% \end{quote}
+%
+% This will create the documentation files. Now create a local |texmf|
+% directory under your home:
+%
+% \begin{quote}
+% |mkdir ~/texmf/tex/latex/memoir|
+% \end{quote}
+%
+% and copy into it all |*.cls|, |*.sty| and |*.clo| files. Finally, run
+% |texhash|.  That's it, you've done!
+%
+% Anyway, it's never a bad idea to read the |README| file. This section was
+% written based on information found inside |README| and at
+% |http://www.tex.ac.uk/| |cgi-bin/texfaq2html?label=instpackages|.
+%
+%
+% \subsection{Few tips to speed your work}
+%
+% It's likely that you'll want the following lines in the preamble of your
+% |.tex| file:
+%
+% \begin{quote}
+% \begin{verbatim}
+% \usepackage[brazil]{babel}
+% \usepackage[latin1]{inputenc}
+% \usepackage[T1]{fontenc}
+%\end{verbatim}
+% \end{quote}
+%
+% If you want graphics (who doesn't?):
+%
+% \begin{quote}
+% \begin{verbatim}
+% \usepackage[dvips]{graphicx}
+%\end{verbatim}
+% \end{quote}
+%
+% Substitute |dvips| for |dvipdf| or |dvipdfm| if you're using one of these
+% systems.
+%
+% If you want to use |hyperref| to provide hyperlinks to the generated |.pdf|
+% file:
+%
+% \begin{quote}
+% \begin{verbatim}
+% \usepackage[dvips,
+%   a4paper,
+%   portuguese,
+%   bookmarks=true,
+%   bookmarksnumbered=true,
+%   linktocpage,
+%   ]{hyperref}
+%\end{verbatim}
+% \end{quote}
+%
+%
+% \section{Source code}
+%
+% This section describes the |ufopthesis.cls| source code.
+%
+% \subsection{Prerequisites and general macros}
+%
+% The |ufopthesis| requires some packages, so let's include them:
+%    \begin{macrocode}
+\RequirePackage{keyval}
+\RequirePackage{setspace}
+%    \end{macrocode}
+
+
+% The class options are handled by |\newif|s, which are declared and
+% initialised:
+%
+%    \begin{macrocode}
+%% General options:
+
+\newif\if@phd                 % phd dissertation option
+\newif\if@msc                 % master thesis option
+\newif\if@proposal            % proposal/project option
+\newif\if@mono                % monograph option
+\newif\if@showcover           % Show cover page?
+\newif\if@showtitle           % Show title page?
+\newif\if@showapproval        % Show approval sheet?
+\newif\if@showabstract        % Show abstract page(s)?
+\newif\if@showdedication      % Show dedication page?
+\newif\if@showack             % Show acknowledgment page?
+\newif\if@showtoc             % Show Table of Contents?
+\newif\if@showlof             % Show List of Figures?
+\newif\if@showlot             % Show List of Tables?
+\newif\if@extraporttitlepage  % Show also a title page in Portuguese?
+\newif\if@putmainmatter       % Put \mainmatter after TOC/LOF/LOT?
+
+\def\ufop@showall{%
+  \@showcovertrue
+  \@showtitletrue
+  \@showapprovaltrue
+  \@showabstracttrue
+  \@showdedicationtrue
+  \@showacktrue
+  \@showtoctrue
+  \@showloftrue
+  \@showlottrue
+}
+
+\def\ufop@hideall{%
+  \@showcoverfalse
+  \@showtitlefalse
+  \@showapprovalfalse
+  \@showabstractfalse
+  \@showdedicationfalse
+  \@showackfalse
+  \@showtocfalse
+  \@showloffalse
+  \@showlotfalse
+}
+
+\@proposalfalse
+\ufop@showall
+\@putmainmattertrue
+
+%% Bibliography options:
+
+\newif\if@bibnorepauthor  % Substitute repeating names by a long line?
+\newif\if@nobreakitems    % Dissalow page breaks between lines of each item?
+
+\@bibnorepauthorfalse
+\@nobreakitemsfalse
+%    \end{macrocode}
+
+% \DescribeMacro{\BreakableUppercase}%
+% |\BreakableUppercase| provides a hack to |\MakeUppercase| which allows the
+% ocurrence of linebreaks (|\\|) in the argument. As |\MakeUppercase|, this
+% macro is called with one mandatory argument: |\BreakableUppercase|
+% \marg{text}.
+%
+%    \begin{macrocode}
+\def\BreakableUppercase#1{%
+  \bgroup
+  \let\ufop@prevdbs=\\%
+  \def\\{\protect\ufop@prevdbs}%
+  \MakeUppercase{#1}%
+  \egroup
+}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@defspacing}%
+% This macro stores the default document spacing, which is user-selectable
+% via one of the following class options: |single|, |onehalf| or |double|.
+%
+%    \begin{macrocode}
+\newcommand{\ufop@defspacing}{\onehalfspace}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@redefchaptitlefont}%
+% This macro redefines the formatting of the text produced by the |\chapter|
+% command. Its sole objective is to redefine the |\chaptitlefont| (see the
+% |memoir| manual) to add the |\centering| keyword if the |\documentclass|'s
+% |centertitles| option is used.
+%
+%    \begin{macrocode}
+\def\ufop@redefchaptitlefont{}
+%    \end{macrocode}
+
+% \DescribeMacro{\university}%
+% \DescribeMacro{\course}%
+% \DescribeMacro{\address}%
+% This is a set of commands to define some information about the document. Some
+% of them are mandatory, since the corresponding information appears somewhere
+% in the auto-generated text. Each macro requires one argument. Call each one
+% with the corresponding information in the preamble of the document (i.e.,
+% before |\begin{document}|).
+%
+%    \begin{macrocode}
+\newcommand*{\university}[1]{\gdef\@university{#1}}  % University name
+\newcommand*{\course}[1]{\gdef\@course{#1}}          % Course name
+\newcommand*{\shortcourse}[1]{\gdef\@shortcourse{#1}}          % Short Course name
+\newcommand*{\address}[1]{\gdef\@address{#1}}        % Address
+%    \end{macrocode}
+
+% \DescribeMacro{\degree}%
+% This macro specifies the degree title: it's not mandatory, since a default is
+% provided --- a translated form of ``Master'' or ``Doctor'', according to the
+% correspondent class option --- |[msc]| or |[phd]| --- and the current
+% language, selected via package |babel|.
+%
+%    \begin{macrocode}
+\newcommand*{\degree}[1]{\gdef\@degree{#1}}          % Degree
+%    \end{macrocode}
+%
+% \DescribeMacro{\logo}%
+% This defines a graphic file containing the picture used in the approval
+% sheet.  You may include the path and extension. If this command isn't used,
+% the approval sheet is built without a logo. Remember that the file format
+% (extension) must be recognized by the \LaTeX{} system being used: for
+% example, |.eps| files aren't compatible with |pdflatex|.
+%
+%    \begin{macrocode}
+\newcommand*{\logo}[1]{\gdef\@logo{#1}}              % Logo
+%    \end{macrocode}
+%
+% \DescribeMacro{\brokentitle}%
+% \label{macro:brokentitle}%
+% When the document title is long and spans more than one line in the cover
+% page, the automatic line breaks may cause the text to be unbalanced between
+% lines. For example, if your title is ``This is a long title for my thesis'',
+% the text may be broken as follows:
+%
+% \begin{center}
+% This is a long title for my\\thesis
+% \end{center}
+%
+% In this case, you may use the macro |\brokentitle| \marg{text} to manually
+% define the line breaks, e.g:
+% |\brokentitle{This is a long title\\for my thesis}| to generate a more
+% balanced aspect:
+%
+% \begin{center}
+% This is a long title\\for my thesis
+% \end{center}
+%
+% The use of |\brokentitle| isn't required, if the aspect based on the title
+% provided by |\title| looks good enough.
+%
+%    \begin{macrocode}
+\newcommand{\brokentitle}[1]{\gdef\@brokentitle{#1}} % Long broken title
+%    \end{macrocode}
+%
+% \DescribeMacro{\title}%
+% The original |\title| macro is redefined to provide a default for
+% |\brokentitle|:
+%
+%    \begin{macrocode}
+\renewcommand*{\title}[1]                            % Title
+  {\gdef\@title{#1}\brokentitle{#1}}
+%    \end{macrocode}
+
+% \DescribeMacro{\portuguesetitle}%
+% \DescribeMacro{\portuguesebrokentitle}%
+% \DescribeMacro{\portugueseuniversity}%
+% \DescribeMacro{\portuguesecourse}%
+% For documents written in non-Portuguese, there are some macros to provide the
+% related information in Portuguese:
+%    \begin{macrocode}
+\newcommand*{\portuguesetitle}[1]                    % Pt. title
+  {\gdef\@portuguesetitle{#1}\portuguesebrokentitle{#1}}
+\newcommand{\portuguesebrokentitle}[1]               % Pt. long broken title
+  {\gdef\@portuguesebrokentitle{#1}}
+\newcommand*{\portugueseuniversity}[1]               % Pt. university name
+  {\gdef\@portugueseuniversity{#1}}
+\newcommand*{\portuguesecourse}[1]                   % Pt. course
+  {\gdef\@portuguesecourse{#1}}
+\newcommand*{\portugueseshortcourse}[1]              % Pt. short course
+  {\gdef\@portugueseshortcourse{#1}}
+
+%    \end{macrocode}
+
+% There are several commands that deal with class options:
+%
+%    \begin{macrocode}
+\DeclareOption{mono}{\@phdfalse\@mscfalse\@monotrue}
+\DeclareOption{msc}{\@phdfalse\@msctrue\@monofalse}
+\DeclareOption{phd}{\@phdtrue\@mscfalse\@monofalse}
+\DeclareOption{proposal}{\@proposaltrue}
+\DeclareOption{project}{\@proposaltrue}
+
+\DeclareOption{single}{\renewcommand{\ufop@defspacing}{\singlespace}}
+\DeclareOption{onehalf}{\renewcommand{\ufop@defspacing}{\onehalfspace}}
+\DeclareOption{double}{\renewcommand{\ufop@defspacing}{\doublespace}}
+
+\DeclareOption{hideall}{\ufop@hideall}
+\DeclareOption{hidecover}{\@showcoverfalse}
+\DeclareOption{hidetitle}{\@showtitlefalse}
+\DeclareOption{hideapproval}{\@showapprovalfalse}
+\DeclareOption{hideabstract}{\@showabstractfalse}
+\DeclareOption{hidededication}{\@showdedicationfalse}
+\DeclareOption{hideack}{\@showackfalse}
+\DeclareOption{hidetoc}{\@showtocfalse}
+\DeclareOption{hidelof}{\@showloffalse}
+\DeclareOption{hidelot}{\@showlotfalse}
+
+\DeclareOption{showall}{\ufop@showall}
+\DeclareOption{showcover}{\@showcovertrue}
+\DeclareOption{showtitle}{\@showtitletrue}
+\DeclareOption{showapproval}{\@showapprovaltrue}
+\DeclareOption{showabstract}{\@showabstracttrue}
+\DeclareOption{showdedication}{\@showdedicationtrue}
+\DeclareOption{showack}{\@showacktrue}
+\DeclareOption{showtoc}{\@showtoctrue}
+\DeclareOption{showlof}{\@showloftrue}
+\DeclareOption{showlot}{\@showlottrue}
+
+\DeclareOption{nomainmatter}{\@putmainmatterfalse}
+
+\DeclareOption{centertitles}{%
+   \def\ufop@redefchaptitlefont{%
+    \expandafter\renewcommand\expandafter{\expandafter\chaptitlefont
+    \expandafter}\expandafter{\chaptitlefont\centering}%
+  }%
+}
+
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{memoir}}
+%    \end{macrocode}
+
+% Default options follow:
+%
+%    \begin{macrocode}
+\ExecuteOptions{phd,onehalf,showall}
+\ProcessOptions
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@setdoctype}%
+% This macro is defined to check boolean registers to adjust some internal
+% registers --- namely, |\@degree| and |\@documenttype|. This macro is called
+% within |\ufop@selectlanguage| macro, which is called at |\begin{document}|.
+%
+%    \begin{macrocode}
+\def\ufop@setdoctype{%
+  \if@phd % this is a PhD thesis
+    \degree{\ufop@phd}
+    \if@proposal
+      \gdef\@documenttype{\ufop@phddocproj}%
+      \ufop@set@phddocproj
+    \else
+      \gdef\@documenttype{\ufop@phddoc}%
+      \ufop@set@phddoc
+    \fi
+  \else   % this is a MSc dissertation
+    \degree{\ufop@msc}
+    \if@proposal
+      \gdef\@documenttype{\ufop@mscdocprop}%
+      \ufop@set@mscdocprop
+    \else
+      \gdef\@documenttype{\ufop@mscdoc}%
+      \ufop@set@mscdoc
+    \fi
+  \fi
+}
+%    \end{macrocode}
+
+% Now there comes the page formatting commands. Here are the options regarding
+% the page size, default font size, pagination, page margins, etc.. The entire
+% work is based on class |memoir|, which greatly simplifies the layout
+% configuration. See Section \ref{sec:memoirtips} about the use of |memoir|.
+%
+%    \begin{macrocode}
+\LoadClass{memoir}
+
+\setlrmarginsandblock{3cm}{2.5cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+
+\checkandfixthelayout
+%    \end{macrocode}
+
+% Index and topic numbering depth configuration:
+%
+%    \begin{macrocode}
+\maxsecnumdepth{subsubsection}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{4}
+%    \end{macrocode}
+
+
+% \subsection{Localization routines}
+%
+% \DescribeMacro{\ufop@langgroup}%
+% Now comes the localization routines. We'll try to use the language passed to
+% package |babel|; if this package isn't being used, the default language is
+% |brazil| (not |english|, since this class is meant to be used primary in
+% Brazil).
+%
+%    \begin{macrocode}
+\def\ufop@langgroup{\@ifundefined{languagename}{brazil}{\languagename}}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@deflanguage}%
+% \DescribeMacro{\ufop@selectlanguage}%
+% The pair of macros |\ufop@deflanguage|\marg{language} and
+% |\ufop@selectlanguage| work together to set the translation table used to
+% build the text in the final document. The first macro takes the language name
+% as argument; the latter is the one that actually does the work.  Currently
+% the available languages are |brazil| and |english|.
+%
+% This macro is automatically called with the language passed to |babel|. If
+% the language isn't recognized, a warning is issued and the default |brazil|
+% is adopted.
+%
+%    \begin{macrocode}
+\def\ufop@deflanguage#1{%
+  \@ifundefined{ufop@lang@#1}{%
+    \ClassWarning{ufopthesis}{Language not defined: #1^^J
+    Using default language `brazil'.^^J}%
+    \def\ufop@langgroup{brazil}}
+    {\def\ufop@langgroup{#1}}%
+}
+\def\ufop@selectlanguage{%
+  \csname ufop@lang@\ufop@langgroup\endcsname\ufop@setdoctype
+}
+%    \end{macrocode}
+
+% The following are auxiliary macros and |newif|s to help the translation
+% routines.
+%
+%    \begin{macrocode}
+\newif\if@ufopdateerror
+
+\newcommand{\ufop@formatdate}[2][]{%
+  \begingroup
+    \def\ufop@templang{#1}%
+    \ifx\ufop@templang\empty\let\ufop@templang\ufop@langgroup\fi
+    \expandafter\ufop@parsedate#2---\relax
+  \endgroup
+}
+\def\ufop@parsedate#1-#2-#3-#4\relax{%
+  \@ufopdateerrortrue
+  \def\ufop@year{\number#1}\def\ufop@month{\number#2}%
+  \def\ufop@day{#3}\ifx\ufop@day\empty\else\def\ufop@day{\number#3}\fi
+  \ifx\ufop@month\empty\else\ifnum#1>99\relax
+    \@ufopdateerrorfalse
+    \csname ufop@expanddate@\ufop@templang\endcsname
+  \fi\fi
+  \if@ufopdateerror
+    \ClassError{ufopthesis}{Invalid date format.^^J%
+    When using the `date=' option for \string\ufopthesis\space or the
+    \string\date\string{...\string} command,^^J%
+    always provide the date in the format yyyy-mm-dd or yyyy-mm^^J%
+    (note the year-month-day order and the hyphen separator)}%
+    \endinput
+  \fi
+}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@lang@brazil}%
+% \DescribeMacro{\ufop@lang@english}%
+% Now the localization tables follow. You can add new translations here,
+% provided that \emph{all} entries are translated!
+%
+%    \begin{macrocode}
+\def\ufop@expandmonth@brazil#1{%
+  \ifcase\ufop@month\or
+  janeiro\or fevereiro\or mar\c{c}o\or abril\or maio\or junho\or
+  julho\or agosto\or setembro\or outubro\or novembro\or dezembro\fi
+}
+\def\ufop@expanddate@brazil{%
+  \edef\text@month{\ufop@expandmonth@brazil{\ufop@month}}%
+  \ifx\ufop@day\empty\expandafter\MakeUppercase\text@month
+    \else \two@digits\ufop@day\ de\ \text@month\fi
+  \ de\ \ufop@year
+}
+\def\ufop@lang@brazil{%
+  \@extraporttitlepagefalse
+
+  \def\@deflang@title{%
+    \@ifundefined{@portuguesetitle}{\@title}{\@portuguesetitle}}
+  \def\@deflang@brokentitle{%
+    \@ifundefined{@portuguesebrokentitle}{\@brokentitle}%
+    {\@portuguesebrokentitle}}
+  \def\@deflang@university{%
+    \@ifundefined{@portugueseuniversity}{\@university}%
+    {\@portugueseuniversity}}
+  \def\@deflang@course{%
+    \@ifundefined{@portuguesecourse}{\@course}{\@portuguesecourse}}
+  \def\@deflang@course{%
+    \@ifundefined{@portugueseshortcourse}{\@shortcourse}{\@portugueseshortcourse}}
+
+
+
+  \def\ufop@titleuppertext{%
+    \@deflang@university\\%
+    Instituto de Ciências Exatas\\
+    
+    \if@phd Programa de Pós-Graduação em \fi
+    \if@msd Pós-Graduação em \fi
+    \@deflang@course}
+
+  \def\ufop@mono{Bacharel}
+  \def\ufop@msc{Mestre}
+  \def\ufop@phd{Doutor}
+  \def\ufop@monodoc{Monografia}
+  \def\ufop@monodocprop{Proposta de monografia}
+  \def\ufop@mscdoc{Disserta\c{c}\~{a}o}
+  \def\ufop@mscdocprop{Proposta de disserta\c{c}\~{a}o}
+  \def\ufop@phddoc{Tese}
+  \def\ufop@phddocproj{Projeto de tese}
+  \def\ufop@approvaltitle{Folha de Aprova\c{c}\~{a}o}
+  \def\ufop@advisor{Orientador}
+  \def\ufop@coadvisor{Co-orientador}
+  \def\ufop@docdescription{%
+    \@documenttype{} apresentad\ufop@doctype@gender{} ao Curso de
+    \if@phd % this is a PhD thesis
+    P\'{o}s-Gradua\c{c}\~{a}o em 
+    \fi
+    \if@msd % this is a PhD thesis
+    P\'{o}s-Gradua\c{c}\~{a}o em 
+    \fi
+    \@deflang@course{} da
+    \@deflang@university{} como requisito parcial para a obten\c{c}\~{a}o
+    do grau de \@degree{} em \@deflang@shortcourse.}
+  \def\ufop@approvaltext{%
+    \@documenttype{} defendid\ufop@doctype@gender{} e
+    aprovad\ufop@doctype@gender{} pela banca examinadora constitu\'{i}da
+    por:}
+  \def\ufop@abstract{Resumo\if@phd\if@proposal\else\ Estendido\fi\fi}
+  \def\ufop@acknowledgments{Agradecimentos}
+
+  \def\ufop@set@phddocproj{\def\ufop@doctype@gender{o}}
+  \def\ufop@set@phddoc{\def\ufop@doctype@gender{a}}
+  \def\ufop@set@mscdocprop{\def\ufop@doctype@gender{a}}
+  \def\ufop@set@mscdoc{\def\ufop@doctype@gender{a}}
+
+  \def\ufopbibauthorsep{;}
+  \def\ufopbibauthorlastsep{}
+  \def\ufopbibauthorand{e}
+  \def\ufopciteauthorand{e}
+  \def\ufopbibpagestring{p.\@}
+  \def\ufopbibpagesstring{pp.\@}
+  \def\ufopbibeditorstring{editor}
+  \def\ufopbibeditorsstring{editores}
+  \def\ufopbibeditionstring{edição}
+}
+
+\def\ufop@expandmonth@english#1{%
+  \ifcase\ufop@month\or
+  january\or february\or march\or april\or may\or june\or
+  july\or august\or september\or october\or november\or december\fi
+}
+\def\ufop@expanddate@english{%
+  \edef\text@month{\ufop@expandmonth@english{\ufop@month}}%
+  \expandafter\MakeUppercase\text@month
+  \ifx\ufop@day\empty\else\ \ufop@day,\fi
+  \ \ufop@year
+}
+\def\ufop@lang@english{%
+  \@extraporttitlepagetrue
+
+  \def\@deflang@title{\@title}
+  \def\@deflang@brokentitle{\@brokentitle}
+  \def\@deflang@university{\@university}
+  \def\@deflang@course{\@course}
+  \def\@deflang@shortcourse{\@shortcourse}
+
+  \def\ufop@titleuppertext{%
+    \@deflang@university\\%
+    Instituto de Ciências Exatas\\
+    \if@phd Graduate Program in \fi
+    \if@msd Graduate Program in \fi
+    \@deflang@course}
+
+  \def\ufop@mono{Bachelor}
+  \def\ufop@msc{Master}
+  \def\ufop@phd{Doctor}
+  \def\ufop@mscdoc{Monograph}
+  \def\ufop@mscdocprop{Monograph proposal}
+  \def\ufop@mscdoc{Dissertation}
+  \def\ufop@mscdocprop{Dissertation proposal}
+  \def\ufop@phddoc{Thesis}
+  \def\ufop@phddocproj{Thesis project}
+  \def\ufop@approvaltitle{Approval Sheet}
+  \def\ufop@advisor{Advisor}
+  \def\ufop@coadvisor{Co-advisor}
+  \def\ufop@docdescription{%
+    \@documenttype{} presented to the Graduate Program in \@course{} of the
+    \@university{} in partial fulfillment of the requirements for the
+    degree of \@degree{} in \@course.}
+  \def\ufop@approvaltext{%
+    \@documenttype{} presented to and approved by the committee
+    composed by:}
+  \def\ufop@abstract{Abstract}
+  \def\ufop@acknowledgments{Acknowledgments}
+
+  \let\ufop@set@phddocproj\relax
+  \let\ufop@set@phddoc\relax
+  \let\ufop@set@mscdocprop\relax
+  \let\ufop@set@mscdoc\relax
+
+  \def\ufopbibauthorsep{,}
+  \def\ufopbibauthorlastsep{,}
+  \def\ufopbibauthorand{and}
+  \def\ufopciteauthorand{and}
+  \def\ufopbibpagestring{page}
+  \def\ufopbibpagesstring{pages}
+  \def\ufopbibeditorstring{editor}
+  \def\ufopbibeditorsstring{editors}
+  \def\ufopbibeditionstring{edition}
+}
+%    \end{macrocode}
+% \subsection{Title pages}
+%
+% \DescribeMacro{\makecoverpage}%
+% \DescribeMacro{\maketitlepage}%
+% Generally a thesis contains two title pages: the first one, sometimes called
+% \emph{cover page} or \emph{half title page}, contains only the institution
+% name, author name, thesis title, city and date. The second one, the
+% \emph{title page}, is quite similar, except that it contains a short
+% descriptive text about the document.
+%
+% If the document isn't written in Portuguese, the |\maketitlepage| actually
+% makes two title pages: one in Portuguese and other in the document language.
+%
+%    \begin{macrocode}
+\newcommand{\makecoverpage}{%
+  \if@showcover\begingroup
+    \ufop@deflanguage{brazil}\ufop@selectlanguage
+    \ufop@maketitlepage{\z@}
+  \endgroup\fi
+}
+\newcommand{\maketitlepage}{%
+  \if@showtitle
+    \if@extraporttitlepage\begingroup
+      \ufop@deflanguage{brazil}\ufop@selectlanguage
+      \ufop@maketitlepage{\@ne}%
+    \endgroup\fi
+    \ufop@maketitlepage{\@ne}%
+  \fi
+}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@docdescriptionwidth}%
+% \DescribeMacro{\ufop@makedocdescription}%
+% These macros are intended to build the small text that describes the
+% document, which is part of the title page.
+%
+%    \begin{macrocode}
+\def\ufop@docdescriptionwidth{0.5\textwidth}
+
+\def\ufop@makedocdescription{%
+  \begin{minipage}{\ufop@docdescriptionwidth}
+    \ufop@docdescription
+  \end{minipage}
+}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@titpag@fmtupper}%
+% \DescribeMacro{\ufop@titpag@fmttitle}%
+% \DescribeMacro{\ufop@titpag@fmtauthor}%
+% \DescribeMacro{\ufop@titpag@fmtaddress}%
+% \DescribeMacro{\ufop@titpag@fmtdate}%
+% These macros are provided to format the corresponding informations about each
+% cover/title page segment. If you want to change the formatting, please alter
+% these macros, \emph{not} |\ufop@maketitlepage|!
+%
+%    \begin{macrocode}
+\def\ufop@titpag@fmtupper#1{\large\textsc{#1}}
+\def\ufop@titpag@fmttitle#1{\Large\textbf{\BreakableUppercase{#1}}}
+\def\ufop@titpag@fmtauthor#1{\large\BreakableUppercase{#1}}
+\def\ufop@titpag@fmtaddress#1{\large #1}
+\def\ufop@titpag@fmtdate#1{\large #1}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@maketitlepage}%
+% This macro builds the cover and the title page. It's called with a mandatory
+% argument, which is zero (|\z@|) to build the cover page or one (|\@ne|) to
+% build the title page.
+%
+%    \begin{macrocode}
+\def\ufop@maketitlepage#1{%
+  \begin{titlingpage}
+  \begin{singlespace}
+  {\centering
+    \vbox to48ex{%
+      \ifx#1\z@
+        {\ufop@titpag@fmtauthor{\@author}}%
+      \else
+        {\ufop@titpag@fmtupper{\ufop@titleuppertext}}%
+      \fi
+      \par\vfil
+    }%
+
+    \begin{doublespace}
+    {\ufop@titpag@fmttitle{\@deflang@brokentitle}}\par
+
+    \vspace{10ex}
+    \end{doublespace}
+
+    \ifx#1\@ne
+      \hspace*{\stretch{1}}\ufop@makedocdescription\par
+    \fi
+
+    \vspace{\stretch{1}}
+
+    \ifx#1\@ne
+      {\ufop@titpag@fmtauthor{\@author}}\par
+      \vspace{30ex}
+    \fi
+
+    {\ufop@titpag@fmtaddress{\@address}}\par
+    \vspace{1ex}
+
+    {\ufop@titpag@fmtdate{\ufop@formatdate{\@date}}}\par
+  }
+  \end{singlespace}
+  \end{titlingpage}
+}
+%    \end{macrocode}
+
+
+% \subsection{The Comitee and the Approval Sheet}
+%
+% There are some macros to handle the comitee list. These were built to accept
+% any number of members in the comitee.
+%
+% First an internal count to store the comitee size:
+%
+%    \begin{macrocode}
+\newcounter{ufop@banca}
+%    \end{macrocode}
+
+% \DescribeMacro{\addtocomitee}%
+% Now the user macro that adds a member to the comitee: |\addtocomitee|
+% \oarg{relationship} \marg{name} \marg{title} \marg{institution}. The
+% \oarg{relationship} optional argument specifies the relationship between this
+% member and the student, generally ``Advisor'' or ``Co-advisor''. Note that
+% there are two macros, |\advisor| and |\coadvisor|, that adds the appropriate
+% relationship word according to the current translation (see below).
+%
+%    \begin{macrocode}
+\newcommand{\addtocomitee}[4][\relax]{%
+  \addtocounter{ufop@banca}{1}
+  \expandafter\def\csname ufop@banca@\theufop@banca name\endcsname
+    {#2}
+  \expandafter\def\csname ufop@banca@\theufop@banca title\endcsname
+    {#3}
+  \def\ufop@temp{#4}
+  \if\ufop@temp.
+    \expandafter\def\csname ufop@banca@\theufop@banca instit\endcsname
+      {\@university}
+  \else
+    \expandafter\def\csname ufop@banca@\theufop@banca instit\endcsname
+      {#4}
+  \fi
+  \ifx#1\relax\else
+    \expandafter\def\csname ufop@banca@\theufop@banca rel\endcsname
+      {#1}
+  \fi
+}
+%    \end{macrocode}
+
+% \DescribeMacro{\advisor}%
+% \DescribeMacro{\coadvisor}%
+% As mentioned before, these two macros just call |\addtocomitee| with the
+% correct relationship word. Use: |\advisor| \marg{name} \marg{title}
+% \marg{institution} (or |\coadvisor|).
+%
+%    \begin{macrocode}
+\newcommand{\advisor}[3]{\addtocomitee[\ufop@advisor]{#1}{#2}{#3}}
+\newcommand{\coadvisor}[3]{\addtocomitee[\ufop@coadvisor]{#1}{#2}{#3}}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@fmtbancatitle}%
+% \DescribeMacro{\ufop@fmtbancaname}%
+% \DescribeMacro{\ufop@fmtbancainstit}%
+% \DescribeMacro{\ufop@fmtbancarel}%
+% These macros are provided to format the corresponding informations about each
+% comitee member. If you want to change the comitee formatting, please alter
+% these macros, \emph{not} |\ufop@makecomiteelist|!
+%
+%    \begin{macrocode}
+\def\ufop@fmtbancatitle{}
+\def\ufop@fmtbancaname{\textsc}
+\def\ufop@fmtbancainstit{}
+\def\ufop@fmtbancarel{}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@makecomiteelist}%
+% This is the macro that builds the comitee list, which is part of the approval
+% sheet.
+%
+%    \begin{macrocode}
+\newcommand{\ufop@makecomiteelist}{%
+  \setcounter{ufop@banca}{1}
+  \loop\expandafter\ifx\csname ufop@banca@\theufop@banca name\endcsname\relax
+    \else
+    {\centering
+    \vspace{\stretch{1}}
+    {\ufop@fmtbancatitle{%
+      \csname ufop@banca@\theufop@banca title\endcsname}}~%
+    {\ufop@fmtbancaname{%
+      \csname ufop@banca@\theufop@banca name\endcsname}}%
+    \@ifundefined{ufop@banca@\theufop@banca rel}{}{%
+      \ -- {\ufop@fmtbancarel{%
+        \csname ufop@banca@\theufop@banca rel\endcsname}}%
+    }%
+    \\%
+    {\ufop@fmtbancainstit{%
+      \csname ufop@banca@\theufop@banca instit\endcsname}}\\%
+    }
+    \stepcounter{ufop@banca}
+  \repeat
+  \vspace{\stretch{1.5}}
+}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufop@apprpag@fmtuniv}%
+% \DescribeMacro{\ufop@apprpag@fmttitle}%
+% \DescribeMacro{\ufop@apprpag@fmtauthor}%
+% \DescribeMacro{\ufop@apprpag@fmttext}%
+% \DescribeMacro{\ufop@apprpag@fmtaddrdate}%
+% \DescribeMacro{\ufop@makecomiteelist}%
+% These macros are provided to format the corresponding informations. If you
+% want to change the comitee formatting, please alter these macros, \emph{not}
+% |\makeapproval|!
+%
+%    \begin{macrocode}
+\def\ufop@apprpag@fmtuniv#1{\normalsize\MakeUppercase{#1}}
+\def\ufop@apprpag@fmttitle#1{\large\MakeUppercase{#1}}
+\def\ufop@apprpag@fmtauthor#1{\large\BreakableUppercase{#1}}
+\def\ufop@apprpag@fmttext{}
+\def\ufop@apprpag@fmtaddrdate{}
+%    \end{macrocode}
+
+% \DescribeMacro{\makeapproval}%
+% This macro typesets the approval sheet.
+%
+%    \begin{macrocode}
+\newcommand{\makeapproval}{%
+  \if@showapproval
+    \begingroup
+    \ufop@deflanguage{brazil}\ufop@selectlanguage
+    \begin{titlingpage}
+    \begin{singlespace}
+    {\centering
+      \ifx\@logo\@undefined
+        {\ufop@apprpag@fmtuniv{\@deflang@university}}\par
+        \vspace{12ex}
+      \else
+        \raisebox{-0.5\height}{\includegraphics{\@logo}}\quad
+        {\ufop@apprpag@fmtuniv{\@deflang@university}}\par
+        \vspace{6ex}
+      \fi
+
+      {\ufop@apprpag@fmttitle{\ufop@approvaltitle}}\par
+      \vspace{5ex}
+
+      {\Large\@deflang@brokentitle\par}
+      \vspace{5ex}
+
+      {\ufop@apprpag@fmtauthor{\@author}}\par
+      \vspace{5ex}
+    }
+
+    {\ufop@apprpag@fmttext{\ufop@approvaltext}}\par
+    \vspace{4ex}
+
+    \ufop@makecomiteelist
+
+    {\centering
+      {\ufop@apprpag@fmtaddrdate{\@address, \ufop@formatdate{\@date}}}%
+      \par
+    }
+    \end{singlespace}
+    \end{titlingpage}
+    \endgroup
+  \fi
+}
+%    \end{macrocode}
+
+% \subsection{Remaining pages}
+%
+% The other front matter pages are all based on external |.tex| files, since
+% there's no way to automatically typeset them :-) . All macros expect the name
+% of a |.tex| file as an argument (it can include relative or absolute paths),
+% but beware: \TeX{} doesn't like paths or filenames containing spaces or
+% special characters, such as accented letters. Please do not stick to
+% filenames like ``\texttt{Cap\'{i}tulo 1.tex}''. Also, use slashes (|/|)
+% instead of backslashes (|\|) when specifying paths, even under MS Windows.
+%
+% None of the files need a |\section| command; it's issued automatically by
+% these macros.
+%
+% \DescribeMacro{\includeabstract}%
+% This macro includes the abstract page. The use is: |\includeabstract|
+% \oarg{title} \marg{filename}. \meta{title} is the abstract title, which
+% defaults to ``Abstract'' translated to the current language. (It may be used
+% to include an alternative abstract written in a foreign language.)
+%
+%    \begin{macrocode}
+\newcommand{\includeabstract}[2][]{%
+  \if@showabstract
+%    \begin{titlingpage}
+    \ufop@redefchaptitlefont
+    \def\@temp{#1}
+    \ifx\@temp\empty\def\@temp{\ufop@abstract}\else\def\@temp{#1}\fi
+    \chapter*{\@temp}
+    \input{#2}
+%    \end{titlingpage}
+    \cleardoublepage
+  \fi
+}
+%    \end{macrocode}
+
+% \DescribeMacro{\includededication}%
+% This macro includes the dedication page. The use is: |\includededication|
+% \marg{filename}.
+%
+%    \begin{macrocode}
+\newcommand{\includededication}[1]{%
+  \if@showdedication
+%    \begin{titlingpage}
+    \vspace*{\stretch{1}}
+    \textit{\input{#1}}
+    \vspace*{\stretch{1}}
+%    \end{titlingpage}
+    \cleardoublepage
+  \fi
+}
+%    \end{macrocode}
+
+% \DescribeMacro{\includeack}%
+% This macro includes the acknowledgment page. The use is: |\includeack|
+% \marg{filename}.
+%
+%    \begin{macrocode}
+\newcommand{\includeack}[1]{%
+  \if@showack
+%    \begin{titlingpage}
+    \ufop@redefchaptitlefont
+    \chapter*{\ufop@acknowledgments}
+    \input{#1}
+%    \end{titlingpage}
+    \cleardoublepage
+  \fi
+}
+%    \end{macrocode}
+
+
+% \subsection{Page headings}
+%
+% The following code does all the necessary stuff to format the page headings.
+%
+%    \begin{macrocode}
+\if@twoside
+  \makeheadrule{headings}{\textwidth}{\normalrulethickness}
+  \makeoddhead{headings}{\textsc{\rightmark}}{}{\thepage}
+  \makeevenhead{headings}{\thepage}{}{\textsc{\leftmark}}
+
+  \copypagestyle{contents}{plain}
+
+  \copypagestyle{listoffigures}{plain}
+
+  \copypagestyle{listoftables}{plain}
+
+  \copypagestyle{bibliography}{headings}
+  \makeoddhead{bibliography}{\textsc{\bibname}}{}{\thepage}
+  \makeevenhead{bibliography}{\thepage}{}{\textsc{\bibname}}
+\else
+  \makeheadrule{headings}{\textwidth}{\normalrulethickness}
+  \makeoddhead{headings}{\textsc{\leftmark}}{}{\thepage}
+
+  \copypagestyle{contents}{plain}
+
+  \copypagestyle{listoffigures}{plain}
+
+  \copypagestyle{listoftables}{plain}
+
+  \copypagestyle{bibliography}{headings}
+  \makeoddhead{bibliography}{\textsc{\bibname}}{}{\thepage}
+\fi
+
+\def\ufop@chaptermark#1{%
+  \markboth{%
+    \ifnum\c@secnumdepth>\m@ne
+      \if@mainmatter
+        \if@twoside\@chapapp\ \fi
+        \thechapter.
+      \fi
+    \fi
+    #1}{}}%
+
+\def\ufop@sectionmark#1{%
+  \markright{%
+    \ifnum\c@secnumdepth>\z@\thesection. \ \fi
+    #1}}%
+
+\def\ufoprestoremarks{%
+  \let\chaptermark=\ufop@chaptermark
+  \let\sectionmark=\ufop@sectionmark
+}
+
+\ufoprestoremarks
+\g@addto@macro\mainmatter{\pagestyle{headings}\ufoprestoremarks}
+%    \end{macrocode}
+
+
+% \subsection{Table of contents, list of figures and tables}
+%
+% \DescribeMacro{\tableofcontents}%
+% \DescribeMacro{\listoffigures}%
+% \DescribeMacro{\listoftables}%
+% The commands that builds the table of contents and the list of figures and
+% tables are hacked to include the correct formatting of page headers.
+%
+%    \begin{macrocode}
+\let\ufop@orig@tableofcontents=\tableofcontents
+\renewcommand{\tableofcontents}{{%
+  \if@showtoc\begingroup
+    \ufop@redefchaptitlefont
+    \let\ufop@save@tableofcontents=\tableofcontents
+    \let\tableofcontents=\ufop@orig@tableofcontents
+    \pagestyle{contents}
+    \tableofcontents*
+    \cleardoublepage
+  \endgroup\fi
+}}
+
+\let\ufop@orig@listoffigures=\listoffigures
+\renewcommand{\listoffigures}{{%
+  \if@showlof\begingroup
+    \ufop@redefchaptitlefont
+    \let\ufop@save@listoffigures=\listoffigures
+    \let\listoffigures=\ufop@orig@listoffigures
+    \pagestyle{listoffigures}
+    \listoffigures*
+    \cleardoublepage
+  \endgroup\fi
+}}
+
+\let\ufop@orig@listoftables=\listoftables
+\renewcommand{\listoftables}{{%
+  \if@showlot\begingroup
+    \ufop@redefchaptitlefont
+    \let\ufop@save@listoftables=\listoftables
+    \let\listoftables=\ufop@orig@listoftables
+    \pagestyle{listoftables}
+    \listoftables*
+    \cleardoublepage
+  \endgroup\fi
+}}
+%    \end{macrocode}
+
+
+% \subsection{The ``let-me-do-everything'' macro}
+%
+% \DescribeMacro{\ufopthesis}%
+% This is the ``magic macro'' that typesets all the introductory pages. It
+% receives an argument with a series of key/value pairs, which are described in
+% Section \ref{sec:ufopthesis}. Please read it!
+%
+%    \begin{macrocode}
+
+\def\ufop@setportabstractfile#1{\def\ufop@portabstractfile{#1}}
+\def\ufop@setabstractfile#1{\def\ufop@abstractfile{#1}}
+\def\ufop@setenabstractfile#1{\def\ufop@enabstractfile{#1}}
+\def\ufop@setdedicationfile#1{\def\ufop@dedicationfile{#1}}
+\def\ufop@setackfile#1{\def\ufop@ackfile{#1}}
+
+\define@key{ufop}{title}{\title{#1}}
+\define@key{ufop}{brokentitle}{\brokentitle{#1}}
+\define@key{ufop}{author}{\author{#1}}
+\define@key{ufop}{university}{\university{#1}}
+\define@key{ufop}{course}{\course{#1}}
+\define@key{ufop}{shortcourse}{\shortcourse{#1}}
+\define@key{ufop}{portuguesetitle}{\portuguesetitle{#1}}
+\define@key{ufop}{portuguesebrokentitle}{\portuguesebrokentitle{#1}}
+\define@key{ufop}{portugueseuniversity}{\portugueseuniversity{#1}}
+\define@key{ufop}{portuguesecourse}{\portuguesecourse{#1}}
+\define@key{ufop}{portugueseshortcourse}{\portugueseshortcourse{#1}}
+\define@key{ufop}{address}{\address{#1}}
+\define@key{ufop}{date}{\date{#1}}
+\define@key{ufop}{logo}{\logo{#1}}
+\define@key{ufop}{advisor}{\advisor#1}
+\define@key{ufop}{coadvisor}{\coadvisor#1}
+\define@key{ufop}{member}{\addtocomitee#1}
+\define@key{ufop}{portugueseabstract}{\ufop@setportabstractfile{#1}}
+\define@key{ufop}{abstract}{\ufop@setabstractfile{#1}}
+\define@key{ufop}{englishabstract}{\ufop@setenabstractfile{#1}}
+\define@key{ufop}{dedication}{\ufop@setdedicationfile{#1}}
+\define@key{ufop}{ack}{\ufop@setackfile{#1}}
+
+\newcommand{\ufopthesis}[1]{%
+  \setkeys{ufop}{#1}
+
+  \frontmatter
+  \pagestyle{plain}
+
+  \makecoverpage
+  \maketitlepage
+  \makeapproval
+  \@ifundefined{ufop@portabstractfile}{}{%
+    \begingroup
+      \ufop@deflanguage{brazil}\ufop@selectlanguage
+      \includeabstract{\ufop@portabstractfile}%
+    \endgroup}
+  \@ifundefined{ufop@abstractfile}{}
+    {\includeabstract{\ufop@abstractfile}}
+  \@ifundefined{ufop@enabstractfile}{}{%
+    \begingroup
+      \ufop@deflanguage{english}\ufop@selectlanguage
+      \includeabstract{\ufop@enabstractfile}%
+    \endgroup}
+  \@ifundefined{ufop@dedicationfile}{}
+    {\includededication{\ufop@dedicationfile}}
+  \@ifundefined{ufop@ackfile}{}
+    {\includeack{\ufop@ackfile}}
+
+  \tableofcontents
+  \listoffigures
+  \listoftables
+
+  \if@putmainmatter\mainmatter\fi
+}
+%    \end{macrocode}
+
+%
+% \subsection{Bibliography stuff}
+%
+% Here are all bibliography-related macros, options, processing, etc..
+%
+% Let's start with macros that store some customizable options:
+%
+%    \begin{macrocode}
+\def\ufop@bibauthorformat{}
+\def\ufop@bibtitleformat{}
+\def\ufop@bibbtitleformat{\itshape}
+\def\ufop@bibbooktitleformat{\itshape}
+\def\ufop@bibjournalformat{\itshape}
+
+\def\ufop@norepstring{---------}
+\def\ufopbibinstring{In}
+%    \end{macrocode}
+
+% The following macros are meant to be automatically used only inside the
+% |.bbl| file (which is compiled by Bib\TeX):
+%
+%    \begin{macrocode}
+\newcommand{\ufopbibauthordoformat}[1]{%
+  \if@bibnorepauthor
+    \def\ufop@currentauthor{#1}%
+    \ifx\ufop@lastauthor\ufop@currentauthor\ufop@norepstring
+      \else{\ufop@bibauthorformat#1}\fi
+    \def\ufop@lastauthor{#1}%
+  \else
+    {\ufop@bibauthorformat#1}%
+  \fi
+}
+\newcommand{\ufopbibtitledoformat}[1]{{\ufop@bibtitleformat#1}}
+\newcommand{\ufopbibbtitledoformat}[1]{{\ufop@bibbtitleformat#1}}
+\newcommand{\ufopbibbooktitledoformat}[1]{{\ufop@bibbooktitleformat#1}}
+\newcommand{\ufopbibjournaldoformat}[1]{{\ufop@bibjournalformat#1}}
+%    \end{macrocode}
+
+% Here comes the declaration of the |\ufopbibliography| options:
+%
+%    \begin{macrocode}
+\define@key{ufopbib}{noauthorrepeat}[true]{\@bibnorepauthortrue}
+\define@key{ufopbib}{noauthorrepstring}{\def\ufop@norepstring{#1}}
+\define@key{ufopbib}{nobreakitems}[true]{\@nobreakitemstrue}
+\define@key{ufopbib}{bibauthorand}{\def\ufopbibauthorand{#1}}
+\define@key{ufopbib}{citeauthorand}{\def\ufopciteauthorand{#1}}
+\define@key{ufopbib}{authorformat}{\def\ufop@bibauthorformat{#1}}
+\define@key{ufopbib}{titleformat}{\def\ufop@bibtitleformat{#1}}
+\define@key{ufopbib}{btitleformat}{\def\ufop@bibbtitleformat{#1}}
+\define@key{ufopbib}{booktitleformat}{\def\ufop@bibbooktitleformat{#1}}
+\define@key{ufopbib}{journalformat}{\def\ufop@bibjournalformat{#1}}
+%    \end{macrocode}
+
+% \DescribeMacro{\ufopbibliography}%
+% Finally, here comes the magic macro. The mandatory argument is the name of
+% the bibliography database file (the |.bib| file), without the extension.
+%
+%    \begin{macrocode}
+\newcommand{\ufopbibliography}[2][]{%
+  \setkeys{ufopbib}{#1}
+
+  \backmatter
+
+  \pagestyle{bibliography}
+  \bibliographystyle{ufop}
+  \begingroup
+    \ufop@redefchaptitlefont
+    \if@nobreakitems\raggedbottom\interlinepenalty=10000\relax\fi
+    \bibliography{#2}
+  \endgroup
+}
+%    \end{macrocode}
+
+% \subsection{Post-processing hook}
+%
+% \DescribeMacro{\AtBeginDocument}%
+% Finally, the |\AtBeginDocument| hook: it calls the macros to configure the
+% language and the default line spacing. The |graphicx| package is also loaded
+% if it was not done by the user, but the best is to manually include it ---
+% since it's important to inform the target driver: |dvips|, |dvipdfm|, etc..
+%
+%    \begin{macrocode}
+\AtBeginDocument{%
+  \ufop@selectlanguage\ufop@defspacing
+  \@ifpackageloaded{graphicx}{}{\RequirePackage{graphicx}}%
+  \@ifpackageloaded{hyperref}{\RequirePackage{memhfixc}}{}%
+}
+%    \end{macrocode}
+%
+% \Finale
