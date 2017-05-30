@@ -125,37 +125,58 @@ Estas leis não são apenas uma descrição da evolução, mas sim uma tentativa
 
 Complexidade de software é um produto natural do crescimento do número de recursos de um software. Com múltiplas interfaces e requerimentos complexos, a complexidade do software pode sair do controle tornando aplicações mais caras de serem mantidas e mais arriscado aprimora-las. Sem gerenciamento, a complexidade pode transformar aplicações em projetos grandes e pesados.
 
-Complexidade excessiva pode impactar negativamente na habilidade do desenvolvedor de gerenciar interações entre camadas e componentes em uma aplicação. Também pode tornar módulos difíceis de serem incrementados e testados. Cada parte do código deve ser verificada para determinar como a mesma afetara a robustez e flexibilidade da aplicação. Complexidade de software é uma das maiores preocupações de empresas que gerenciam diversas tecnologias e aplicações em uma arquitetura de vários níveis.
+Complexidade excessiva pode impactar negativamente na habilidade do desenvolvedor de gerenciar interações entre camadas e componentes em uma aplicação. Também pode tornar módulos difíceis de serem incrementados e testados. Cada parte do código deve ser verificada para determinar como a mesma afetará a robustez e flexibilidade da aplicação. Complexidade de software é uma das maiores preocupações de empresas que gerenciam diversas tecnologias e aplicações em uma arquitetura de vários níveis.
 
 A engenharia de software desenvolveu algumas medidas de complexidade software, sendo a mais comum a medida de complexidade de McCabe, também chamada de complexidade ciclamática. 
 
 \subsection{ Complexidade Ciclomática }
 
-A complexidade ciclomática mede o número de caminhos de execução em uma aplicação. O cálculo é realizado através de conceitos da teoria dos grafos, descritos a seguir.
+Como complexidade pode ser um conceito subjetivo, \cite{mccabe1976complexity} definiu uma forma de mensurá-la. A complexidade ciclomática mede o número de caminhos de execução em uma aplicação. O cálculo é realizado através de conceitos da teoria dos grafos, descritos a seguir.
 
-O número ciclomático de um grafo F com n vertices e p componentes conexos é:
-
+As seguintes definições da teoria dos grafos são necessárias:
+\begin{definition}\thlabel{ciclomaticNumberDefinition}
+O número ciclomático de um grafo F com n vértices e p componentes conexos é:
+\end{definition}
 \[ v(G) = e - n + p \]
+\begin{theorem}
+\thlabel{independentCircuitsTheorem}
+Em um grafo fortemente conexo G, o número ciclomático é igual ao número máximo de circuitos independentes. 
+\end{theorem}
 
-Teorema 1: em um grafo conexo G, o número ciclomático é igual ao número máximo de circuitos independentes. 
+O teorema acima é aplicado da seguinte forma: dado um programa, um grafo direcionado é associado ao mesmo possuindo pontos de início e fim únicos. Cada nó no grafo corresponde a um bloco de código no programa onde há um fluxo sequencial e cada aresta corresponde a ramificações no programa. Tal grafo também é conhecido como grafo de fluxo de controle. Assume-se que cada nó pode ser alcançado partido do ponto de entrada, e todos os nós levam ao ponto de saída. Porém, grafos de controle de fluxo não são fortemente conexos. Para aplicarmos o \thref{independentCircuitsTheorem}, adicionamos um "arco virtual" a partir do nó de saída \textit{f} levando ao nó de entrada \textit{a}. O grafo de controle de fluxo G torna-se fortemente conexo, ou seja, há um caminho quais dois vértices do grafo, tornando válida a aplicação do \thref{independentCircuitsTheorem}. A complexidade ciclomática é derivada do número ciclomático adicionando-se uma unidade representando-se a contribuição do arco virtual\cite{watson1996structured}. Portanto, o número máximo de circuitos linearmente independentes em G é:
+\[v(G) = 9 - 6 + 2 = 5\].
+Na Figura \ref{fig:grafo-de-controle-de-fluxo}, há a representação de um grafo de fluxo de controle com o nó de entrada \textit{a} e o nó de saída \textit{f}. 
+Assim, podemos escolher os seguintes circuitos independentes do em G:
+\begin{verbatim}
+B1: (abefa), (beb), (abea), (acfa), (adcfa).
+\end{verbatim}
+B1 forma a base para o conjunto de todos os circuitos em G e qualquer caminho em G pode ser expressado como uma combinação linear dos circuitos de B1. Por exemplo, o circuito \[(abeabebebef)\] pode ser expressado como \[(abea)+2(beb)+(abefa)\]. 
 
-O teorema acima é aplicado da seguinte forma: dado um programa, um grafo direcionado é associado ao mesmo possuindo pontos de início e fim únicos. Cada nó no grafo corresponde a um bloco de código no programa onde há um fluxo sequencial e cada aresta corresponde a ramificações no programa (também conhecido como grafo de fluxo de  controle). Assume-se que cada nó pode ser alcançado partido do ponto de entrada, e todos os nós levam ao ponto de saída. 
+Ao usar o \thref{independentCircuitsTheorem} podemos escolher um conjunto base de circuitos que correspondem a caminhos no programa. O conjunto B2 é a base dos caminhos do programa.
+\[B2: (abef).(abeabef),(abebef),(acf),(adcf)\]
+
+A combinação linear dos caminhos em B2 também gera qualquer caminho. Por exemplo:
+
+\[(abea(be)^3f) = 2(abebef) - (abef)\]
+
+
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{../../controle_de_fluxo}
-	\caption{Exemplo de grafo de controle de fluxo}
+	\includegraphics[width=0.35\linewidth]{../../controle_de_fluxo}
+	\caption{Grafo G: Exemplo de grafo de controle de fluxo}
 	\label{fig:grafo-de-controle-de-fluxo}
 \end{figure}
 
+Para ilustrar melhor o relacionamento entre a complexidade ciclomática e o fluxo do programa, consideremos a Figura \ref{fig:fluxoestruturas}. Nela, uma sequência tem dois nós, um arco, um componente e portanto, contribui para uma complexidade de $C = 1 - 2 + 2$. Já a estrutura \textit{case} possui seis arcos, cinco nós e duas regiões, adicionando uma complexidade de $C = 6 - 5 + 2 = 3$.
 
-A complexidade ciclomática de um programa é igual ao número de pontos de decisão(como expressões \textit{if} ) contidos no programa, somados a um. Porém, só se pode afirmar o mesmo para pontos de decisão contados no nível mais baixo, em codificação de máquina. Decisões envolvendo predicados compostos, como aqueles encontrados em linguagens de alto nível devem ser contados em termos das variáveis de predicado envolvidas, como no exemplo:
-\begin{verbatim}
-IF cond1 AND cond2 THEN ...
-\end{verbatim}
-contamos dois pontos de decisão, pois em nível de máquina é equivalente à:
-\begin{verbatim}
-IF cond1 THEN IF cond2 THEN ..
-\end{verbatim}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{figure/fluxo_estruturas}
+	\caption{}
+	\label{fig:fluxoestruturas}
+\end{figure}
+
+
 %\subsection{O processo de desenvolvimento do Linux Kernel}
 %
 %Sendo um software livre, o desenvolvimento do Linux Kernel é público,
