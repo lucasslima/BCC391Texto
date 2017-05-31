@@ -43,10 +43,10 @@
 %\item Na Seção 2.4, a ferramenta SonarQube, que implementa medições conforme
 %conceitos do SQALE.
 %\end{itemize}
-\section{As Leis de Lehman}
+\section{As Leis de Lehman sobre Evolução de Software}
 
 Vários modelos presentes na literatura dividem o ciclo de vida do software em duas partes: o desenvolvimento até o lançamento inicial, e sua manutenção posterior. Porém, muitos sistemas reais, especialmente de tipo-E estão sujeitos à um desenvolvimento contínuo e continuam a evoluir durante sua existência. 
-Lehman estudou vários sistemas de larga escala e identificou as seguintes leis da evolução de software, descrevendo padrões comportamentais ao invés de questões técnicas\cite{lehman1979understanding,lehman1996laws}. Vários estudos proporcionaram suporte empírico as leis, em geral analisando o tamanho dos softwares cresce com o tempo[Citação]. Neste estudo, é realizada uma estudo quantificado seguindo as métricas utilizadas em \cite{israeli2010linux}.
+Lehman estudou vários sistemas de larga escala e identificou as seguintes leis da evolução de software, descrevendo padrões comportamentais ao invés de questões técnicas\cite{lehman1979understanding,lehman1996laws}. Vários estudos proporcionaram suporte empírico as leis, em geral analisando o como o tamanho dos software cresce com o tempo[Citação]. Neste estudo, é realizada uma estudo quantificado seguindo as métricas utilizadas em \cite{israeli2010linux}.
 
 As leis de Lehman, na ordem em que são formuladas são:
 \begin{enumerate}
@@ -166,15 +166,15 @@ A combinação linear dos caminhos em B2 também gera qualquer caminho. Por exem
 	\caption{Grafo G: Exemplo de grafo de controle de fluxo}
 	\label{fig:grafo-de-controle-de-fluxo}
 \end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\linewidth]{figure/fluxo_estruturas}
+	\caption{Representação de estruturas de controle em um grafo de controle de fluxo}
+	\label{fig:fluxoestruturas}
+\end{figure}
 
 Para ilustrar melhor o relacionamento entre a complexidade ciclomática e o fluxo do programa, consideremos a Figura \ref{fig:fluxoestruturas}. Nela, uma sequência tem dois nós, um arco, um componente e portanto, contribui para uma complexidade de $C = 1 - 2 + 2$. Já a estrutura \textit{case} possui seis arcos, cinco nós e duas regiões, adicionando uma complexidade de $C = 6 - 5 + 2 = 3$.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{figure/fluxo_estruturas}
-	\caption{}
-	\label{fig:fluxoestruturas}
-\end{figure}
 
 
 %\subsection{O processo de desenvolvimento do Linux Kernel}
