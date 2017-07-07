@@ -3,14 +3,14 @@
 
 %Expor o tema\footnote{Um tema expressa a idéia central da pesquisa, aquilo que irá identificar o objeto de estudo da pesquisa ou a intenção do autor~\cite{Booth03,Denscombe2012}.} geral da monografia e fornecer as motivações contextuais que levaram o autor a conduzir o trabalho (e.g., dissertar sobre a importância e relevância, científica e/ou pra sociedade, do estudo/pesquisa que se pretende fazer de modo geral e/ou para a localidade/região)~\cite{Booth03,katz2009,Denscombe2012}. Além disso, nesta seção, podem ser apresentados, de forma sucinta, a definição de conceitos essenciais para o entendimento do trabalho. 
 
-Nos últimos 10 anos, Software Livre (Free/Libre Open-Source    Software FLOSS) passou de apenas uma curiosidade acadêmica para um dos maiores focos da comunidade acadêmica. Existem hoje milhares de projetos FLOSS, em diversas áreas de aplicação. Devido aos seus respectivos tamanhos o sistema operacional Linux e o Servidor Web Apache são os mais conhecidos, mas centenas de outros são largamente utilizados, incluindo projetos que integram a infraestrutura da internet (e.g. sendmail, bind), aplicações voltadas à usuários(e.g., Mozilla Firefox, LibreOffice), compiladores e interpretadores de linguagens de programação(e.g. Perl, Python, gcc), ambientes de desenvolvimento integrado (e.g., Eclipse) ou até mesmo softwares empresariais (e.g., eGroupware, openCRX).
+Nos últimos 10 anos, Software Livre (Free/Libre Open-Source    Software FLOSS) tem se tornado um dos grandes objetos e pesquisa e desenvolvimento da comunidade acadêmica. Existem hoje milhares de projetos FLOSS, em diversas áreas de aplicação. Devido aos seus respectivos tamanhos, o sistema operacional Linux e o Servidor Web Apache são os mais conhecidos, mas centenas de outros \textit{software} livres são largamente utilizados, incluindo projetos que integram a infraestrutura da internet (e.g. sendmail, bind), aplicações voltadas à usuários(e.g., Mozilla Firefox, LibreOffice), compiladores e interpretadores de linguagens de programação(e.g. Perl, Python, gcc), ambientes de desenvolvimento integrado (e.g., Eclipse) ou até mesmo \textit{software} empresarial (e.g., eGroupware, openCRX).
 
 
 
-Enquanto FLOSS pode ser desenvolvido da mesma forma de software proprietário, muitos projetos são desenvolvidos por times organizacionalmente e geograficamente distribuídos, no que é descrito como desenvolvimento comunitário[Lee and Cole 2003]. Em alguns projetos, uma determinada organização toma a liderança na coordenação dos esforços da comunidade[FITZGERALD 2006], como a fundação APACHE, foco de estudo deste trabalho, apesar de vários projetos existirem fora de quaisquer estrutura organizacional. Centrais como \textit{Github} e \textit{SourceForge} são frequentemente utilizados para organizar projetos FLOSS. Embora empresas tem aumentado consideravelmente sua participação em projetos FLOSS assim como a contribuição de empregados contratos para trabalhar em tais projetos[Lakhani e Wolf 2005], mesmo estas contribuições são disponibilizadas para a comunidade [Henkel 2006]. Assim, FLOSS pode ser considerado como um bem público produzido por meios privados [O'Mahony 2003]. A qualidade destes produtos é o foco deste trabalho.
+Muitos projetos são desenvolvidos por times organizacionalmente e geograficamente distribuídos, no que é descrito como desenvolvimento comunitário[Lee and Cole 2003]. Em alguns projetos, uma determinada organização toma a liderança na coordenação dos esforços da comunidade[FITZGERALD 2006], como a fundação APACHE, foco de estudo deste trabalho. Nestes cenários, plataformas de hospedagem de código tais como \textit{Github} e \textit{SourceForge} são frequentemente utilizadas para apoias a modelagem e implementação de projetos FLOSS. Embora empresas tem aumentado consideravelmente sua participação em projetos FLOSS assim como contratando  desenvolvedores para trabalhar exclusivamente em tais projetos[Lakhani e Wolf 2005].
 
 
-Outra característica importante de FLOSS desenvolvidos pela comunidade caracteriza-se pelo fato dos desenvolvedores contribuírem como voluntários, sem remuneração; outros são remunerados por seus empregadores para trabalhar no projeto, mas não são pagos diretamente pelo mesmo. Adicionalmente, o risco de \textit{"forking"} (criação de um projeto independente baseado na mesma base de código), apesar de incomum e desencorajado, limita a capacidade de seus líderes de disciplinar os membros. Tais características fazem equipes de desenvolvimento FLOSS exemplos extremos de times auto-organizáveis distribuídos, consistentes com as condições encontradas por várias empresas quando recrutando e motivando profissionais ou desenvolvendo times distribuídos.
+Outra característica importante de FLOSS desenvolvidos pela comunidade caracteriza-se pelo fato dos desenvolvedores contribuírem como voluntários, sem remuneração; outros são remunerados por seus empregadores para trabalhar no projeto, mesmo que o projeto não contribua diretamente com a sua remuneração. Adicionalmente, o risco de \textit{"forking"} (criação de um projeto independente baseado na mesma base de código), apesar de incomum e desencorajado, limita a capacidade de seus líderes de disciplinar os membros colaboradores. Tais características fazem equipes de desenvolvimento FLOSS exemplos extremos de times auto-organizáveis distribuídos, consistentes com as condições encontradas por várias empresas quando recrutando e motivando profissionais ou desenvolvendo times distribuídos.
 Como resultado, FLOSS se tornou uma parte integral da infraestrutura da sociedade moderna, tornando fundamental uma compreensão mais profunda de como se desenvolve.
 
 %\section{Definição do Problema}
@@ -24,18 +24,20 @@ A compreensão do movimento FLOSS tornou-se importante pela sua própria dimens�
 Apesar de vários estudos terem abordado o movimento FLOSS, revisões bibliográficas da literatura previamente realizadas\cite{crowston2012free} mostram que 
 há um grande número de trabalhos publicado visando a análise organizacional do projeto ou grupo em questão, com apenas 7\% dos trabalhos focados nos artefatos produzidos pelos mesmos. 
 
-Muitos FLOSS caem na classificação de Lehman como softwares de tipo E\cite{}(\textit{E-type Systems}). Estes sistemas tem como propósito modelar problemas do mundo real e através de seu uso, tornam-se parte do mundo que tentam modelar. Com o tempo, tais sistemas são modificados de acordo com novos requerimentos e mudanças desejadas por usuários, evoluindo de maneiras que não podem ser previstas ou especificadas previamente[REFERENCIA MALDITA]. Ele passam pelo chamado \textit{desenvolvimento perpétuo}, com novas versões de produção lançadas frequentemente. Mesmo que o desenvolvimento possa um dia chegar ao fim quando o uso do sistema é descontinuado, a mentalidade dos desenvolvedores é que o projeto irá progredir indefinidamente.
+Muitos FLOSS caem na classificação de Lehman\cite{belady1976model} como softwares de tipo E\cite{}(\textit{E-type Systems}). Estes sistemas tem como propósito modelar problemas do mundo real e através de seu uso, tornam-se parte do mundo que tentam modelar. Com o tempo, tais sistemas são modificados de acordo com novos requerimentos e mudanças desejadas por usuários, evoluindo de maneiras que não podem ser previstas ou especificadas previamente. Ele passam pelo chamado \textit{desenvolvimento perpétuo}, com novas versões de produção lançadas frequentemente. Mesmo que o desenvolvimento possa um dia chegar ao fim quando o uso do sistema é descontinuado, a mentalidade dos desenvolvedores é que o projeto irá progredir indefinidamente.
 
 Os estudos de Lehman sobre a evolução dos softwares tipo-E levaram a formulação de um conjunto de "leis" da evolução de software. Estas incluem observações como softwares que estão em constante uso inevitavelmente continuam a crescer, para se adaptarem ao ambiente. É importante também ressaltar que tais leis são gerais e não dependem da forma como o software estudado é desenvolvido. Tais leis foram validadas pelo estudo da evolução do tamanho de grandes sistemas comerciais como o IBM OS/360. 
 
-Tal ótica já foi utilizada em estudos de caso de grandes projetos como o Linux Kernel\cite{israeli2010linux}, verificando que nem todas as mencionadas leis são observadas em sua evolução. Assim, visamos expandir o estudo para outros projetos de software, para verificar se o mesmo comportamento se aplica a eles.
+Vários estudos já foram realizados tentado verificar a validade das Leis de Lehman as ao contexto de \textit{Software} Livre obtendo resultados variados. Em grande parte dos estudos, há evidencias de validade apenas parcial das Leis de Lehman de acordo com os resultados encontrados. Devido as diferentes métricas e a observações que à validade das leis varia de entre diferentes projetos, os autores argumentão que mais estudos são necessários para que haja uma melhor compreensão da evolução do \textit{Software} Livre.
 
 
 \section{Objetivos}
-\subsection{Objetivo Geral}
+
+Nesta seção, são apresentados o Objetivo Geral (Subseção \ref{ssec:num1}) e os Objetivos Específicos (Subseção \ref{ssec:num2})
+\subsection{Objetivo Geral} \label{ssec:num1}
 Este trabalho visa analisar a evolução do código dos projetos sob o cuidado da Apache Software Foundation através de métricas previamente utilizadas na literatura, e determinar se os projetos obedecem as Leis de Lehman sobre a evolução de software.
 
-\subsection{Objetivos Específicos}
+\subsection{Objetivos Específicos} \label{ssec:num2}
 \begin{itemize}
 \item Realizar uma revisão das leis de Lehman para a evolução de software.
 \item Descrever de forma geral o a evolução dos softwares englobados pela organização.
@@ -48,21 +50,10 @@ Este trabalho visa analisar a evolução do código dos projetos sob o cuidado d
 O restante deste documento é organizado da seguinte forma:
 
 
-No capítulo 2 é apresentada a fundamentação teórica do trabalho, revisando
+No Capítulo \ref{chapter:fundamentos} é apresentada a fundamentação teórica do trabalho, revisando
 os principais conceitos relacionados a manutenibilidade de código, avaliação de débito técnico e evolução de software.
 
-No capítulo 3 uma revisão bibliográfica da literatura é apresentada, descrevendo estudos previamente realizados, suas conclusões e 
+No Capítulo \ref{chapter:trabalhosRelacionados} uma revisão bibliográfica da literatura é apresentada, descrevendo estudos previamente realizados, suas conclusões e 
 contribuições.
 
-No capítulo 4 são descritas as métricas e medições realizadas nos projetos.
-%%\begin{itemize}
-%\item No Capítulo 2 é apresentada a revisão bibliográfica.
-%\item No Capítulo 3 são apresentadas as métricas e os resultados obtidos.
-%\item No Capítulo 4 são apresentadas as conclusões.
-%\end{itemize}
-
-% A caracterização do problema, as justificativas e as hipóteses podem ser incluídas na introdução, ou destacadas à parte, quando for o caso. 
-
-
-
-
+No Capítulo \ref{chapter:desenvolvimento} são descritas as métricas e medições realizadas nos projetos.

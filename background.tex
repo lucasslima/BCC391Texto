@@ -1,63 +1,28 @@
 \chapter{Fundamentação Teórica}
 \label{chapter:fundamentos}
 
-%\cite{schach2002maintainability} analisaram 365 versões sequencias
-%do Linux (da versão 1.0 a versão 2.4). Para cada versão, eles contaram
-%o número ocorrências de acoplamentos globais assim como definidos
-%em \cite{offutt1993software}, entre 17 módulos (arquivos executáveis
-%.c) e todos os outros módulos naquela versão do Linux. Os autores
-%encontraram que o número de ocorrências de acoplamento global cresce
-%exponencialmente com o número da versão. Por outro lado, os autores
-%também encontraram que o número de linhas de código crescia apenas
-%linearmente a cada versão. Com estes resultados, os autores argumentam
-%que a menos que o projeto seja reestruturado visando um mínimo de
-%acoplamentos globais, as dependências introduzidas pelo acoplamento
-%global tornaria o Linux difícil de ser mantido sem a introdução de
-%regressões.
-%
-%Em \cite{israeli2010linux}, um estudo da evolução do Linux Kernel
-%é realizado considerando as Leis de Lehman\cite{lehman1979understanding},
-%que regram a evolução de softwares do tipo E. Softwares do tipo E
-%são definidos como sistemas escritos para efetuar tarefas do mundo
-%real; como o sistema deve se comportar está diretamente relacionado
-%ao seu contexto de funcionamento, devendo ser também capaz de se adaptar
-%aos requerimentos e circunstâncias possivelmente variáveis de tal
-%contexto. O estudo conclui que apesar da 7\textsuperscript{a }lei
-%predizer redução da manutenibilidade do código com o tempo, ela é
-%contrariada pelo contínuo aumento de utilidade aos usuários e um aumento
-%consistente da classificação da manutenibilidade de acordo com a métrica
-%utilizada pelos autores( Índice de manutenibilidade Oman\cite{oman1994construction}).
-%De acordo com os autores, o trabalho contínuo no Linux preveniu o
-%declínio da manutenibilidade.
-%
-%\section{Fundamentação teórica}
-%
-%Neste capítulo, são descritos os conceitos fundamentais para entendimento
-%deste trabalho, a saber. O capítulo é organizado da seguinte forma:
-%\begin{itemize}
-%\item Na Seção 2.1, é apresentada a definição de Manutenibilidade.
-%\item Na Seção 2.2, uma visão geral do processo de contribuição ao Linux
-%Kernel é descrita, assim como oferecida pela literatura. 
-%\item Na Seção 2.3, o método SQALE(Software Quality Assessment based on
-%Life Cycle Expectations) para avaliação de qualidade de código é descrito. 
-%\item Na Seção 2.4, a ferramenta SonarQube, que implementa medições conforme
-%conceitos do SQALE.
-%\end{itemize}
-\section{As Leis de Lehman sobre Evolução de Software}
+Nesta seção são os conceitos base utilizados neste trabalho. Na Seção \ref{sec:lehmalaws} são descriminadas as Leis de Lehman sobre Evolução de Software. Na Seção \ref{sec:softwareMetrics} é apresentada a definição das métricas utilizadas no estudo.
+\section{Evolução de software}
+O termo \textit{evolução} descreve fenômenos observáveis em diferentes domínios, incluindo entidades ou conjuntos de entidades como espécies de seres vivos, sociedades, cidades, artefatos, conceitos, teorias e ideias. Se quaisquer destas mudanças progressivas em alguma das suas qualidades, é dito que tais entidades \textit{evoluem} com o tempo. A mudança é definida como progressiva se puder ser considerada algum tipo melhoramento, podendo envolver ou não novas propriedades.
+
+Muitas vezes a mudança é motivada pela necessidade de adaptar o entidade individual ou a classe como um todo, para manter ou melhorar sua adequação dentro de circunstâncias ou contexto em mudança constante. A mudança nestas entidades pode tornar-las de alguma forma mais úteis ou significativa, ou incrementar seu valor de outras formas. Ela também pode remover propriedades que não mais apropriadas. Mudanças fundamentais ou radicais, em geral, não são consideradas mudanças evolutivas. Estas, são geralmente incrementais e pequenas em relação a entidade ou classe em questão, mas exceções são possíveis.
+
+Este conceito de evolução também é apropriado para sistemas de \textit{software} do tipo E. Este tipo de sistema foi observado e descrito pelas observações e dados adquiridos por de Meir Lehman, consistentemente por vários anos.
+\subsection{As Leis de Lehman sobre Evolução de Software} \label{sec:lehmalaws}
 
 Vários modelos presentes na literatura dividem o ciclo de vida do software em duas partes: o desenvolvimento até o lançamento inicial, e sua manutenção posterior. Porém, muitos sistemas reais, especialmente de tipo-E estão sujeitos à um desenvolvimento contínuo e continuam a evoluir durante sua existência. 
-Lehman estudou vários sistemas de larga escala e identificou as seguintes leis da evolução de software, descrevendo padrões comportamentais ao invés de questões técnicas\cite{lehman1979understanding,lehman1996laws}. Vários estudos proporcionaram suporte empírico as leis, em geral analisando o como o tamanho dos software cresce com o tempo[Citação]. Neste estudo, é realizada uma estudo quantificado seguindo as métricas utilizadas em \cite{israeli2010linux}.
+Lehman estudou vários sistemas de larga escala e identificou as seguintes leis da evolução de software, descrevendo padrões comportamentais ao invés de questões técnicas\cite{lehman1979understanding,lehman1996laws}. Vários estudos proporcionaram suporte empírico as leis, em geral analisando como o tamanho do \textit{software} evolui com o tempo.
 
 As leis de Lehman, na ordem em que são formuladas são:
 \begin{enumerate}
-	\item \textit{Contínua Mudança}: Um software de tipo-E deve ser continuamente adaptado, ou tornará-se progressivamente menos satisfatório em uso. A adaptação refere-se as circunstâncias de uso do software. Por exemplo, se uma prática de trabalho mudar, softwares que auxiliam nesta prática também deve mudar. 
-	\item \textit{Complexidade Crescente}: A medida que o software é alterado sua complexidade tende a aumentar e torna-se mais difícil de evoluir sem que haja esforço para manter e reduzir a complexidade. Esta lei complementa a primeira lei. Quando um programa é alterado, o foco do trabalho é a funcionalidade desejada. Assim as modificações são realizadas sem levar em consideração a arquitetura inicial. Isto implica que para manter o programa operacional, apenas investir na sua mudança não é suficiente. É necessário que cuidados para reduzir a complexidade para níveis aceitáveis a fim de facilitar ou simplesmente simplificar mudanças subsequentes.
-	\item \textit{Auto-regulação}: A evolução do software é regulada por avaliações. Caracteriza-se assim equilíbrio entre demandas por mudanças e restrições do que pode ser realmente feito. O passo da mudança passa assim a ser determinado, entre outros fatores, pela organização responsável pela manutenção. Esta lei também tem como consequência que os modelos da evolução pode ser utilizados como ferramentas de planejamento.
+	\item \textit{Contínua Mudança}: Um software de tipo-E deve ser continuamente adaptado, ou tornará-se progressivamente menos satisfatório em uso. A adaptação refere-se as circunstâncias de uso do software. Por exemplo, se uma prática de trabalho mudar, como uma mudança de procedimento ou uma nova metodologia de trabalho, softwares que auxiliam nestas práticas também devem mudar.
+	\item \textit{Complexidade Crescente}: A medida que o software é alterado sua complexidade tende a aumentar e torna-se mais difícil de evoluir sem que haja esforço para manter e reduzir a complexidade. Esta lei complementa a primeira lei. Quando um programa é alterado, o foco do trabalho é a funcionalidade desejada. Assim as modificações podem ser realizadas sem levar em consideração a arquitetura inicial. Isto implica que para manter o programa operacional, apenas investir na sua mudança não é suficiente. É necessário que cuidados para reduzir a complexidade para níveis aceitáveis a fim de facilitar ou simplesmente simplificar mudanças subsequentes.
+	\item \textit{Auto-regulação}: A evolução do software é auto-regulada. Caracteriza-se em um equilíbrio entre demandas por mudanças (como novas funcionalidades, correções de problemas) e restrições do pode ser feito dentro dos recursos disponíveis (como tempo). O passo da mudança passa assim a ser determinado, entre outros fatores, pela organização responsável pela manutenção. Assim, o software auto-ajusta seu tamanho com incrementos e decrementos.
 	\item \textit{Conservação da estabilidade organizacional(Quantidade de trabalho constante)}: A quantidade de trabalho tende a ser constante durante o tempo de vida operacional do software. Isto reflete a dificuldade em mover pessoal, fazer mudanças de orçamento, etc. Grandes organizações que produzem software possuem inercia e tendem a continuar trabalhando da mesma maneira. 
-	\item \textit{Conservação de familiaridade}: Em geral, o crescimento do software tipo-E é restrito a necessidade mante-lo familiar. Manter a familiaridade é importante tanto para desenvolvedores quanto para usuários. Grandes alterações num curto espaço de tempo tem uma grande chance de trazer problemas.
-	\item \textit{Crescimento contínuo}: As capacidades funcionais de softwares de tipo-E devem ser continuamente melhoradas para manter a satisfação do usuário durante a tempo de vida do software. Esta é uma extensão da primeira lei: funcionalidade não é adaptada apenas para mudanças de condição, mas também incrementada com novas capacidades vindas de demandas de usuários e outros envolvidos como software.
+	\item \textit{Conservação de familiaridade}: Em geral, o crescimento do software tipo-E é restrito a necessidade mante-lo familiar, pois desenvolvedores precisam entender o código fonte do programa e seu comportamento. Manter a familiaridade é importante tanto para desenvolvedores quanto para usuários. Grandes alterações num curto espaço de tempo tem uma grande chance de trazer problemas.
+	\item \textit{Crescimento contínuo}: As capacidades funcionais de softwares de tipo-E devem ser continuamente melhoradas para manter a satisfação do usuário durante a tempo de vida do software. Esta é uma extensão da primeira lei: funcionalidade não é adaptada apenas para mudanças de condição, mas também incrementada com novas capacidades vindas de demandas de usuários e outros envolvidos com o software.
 	\item \textit{Qualidade descrescente}: A menos que rigorosamente adaptado e evoluído para considerar mudanças operacionais do meio, a qualidade de um software de tipo-E parecerá diminuir. Esta lei é um corolário à primeira lei, e descreve os resultados de sua violação. Se o software não é adaptado, premissas utilizadas durante a sua construção tornarão progressivamente menos relevantes ou até mesmo inválidas, e seus efeitos latentes podem ser imprevisíveis.
-	\item \textit{Sistema de avaliações}: Os processos da evolução do software sistemas de avalição com múltiplos níveis, loops e agentes. Multiplos participantes estão envolvidos, incluindo gerentes, desenvolvedores, clientes e usuários. 
+	\item \textit{Sistema de realimentação}: Os processos da evolução do software sistemas de avalição com múltiplos níveis, loops e agentes. Multiplos participantes estão envolvidos, incluindo gerentes, desenvolvedores, clientes e usuários. 
 \end{enumerate}
 
 Estas leis não são apenas uma descrição da evolução, mas sim uma tentativa de explicar os processos regendo a mesma. Elas não são necessariamente observáveis de forma direta no software resultante, porém o software pode refletir efeitos as leis postuladas. Lehman procurou tais efeitos para validar tais leis, e expandimos esta busca para outros grupos.
@@ -121,8 +86,9 @@ Estas leis não são apenas uma descrição da evolução, mas sim uma tentativa
 %
 %\subsection{Code Smells}
 
-\section{Complexidade de software}
+\section{Métricas para análise} \label {sec:softwareMetrics}
 
+\subsection{Complexidade de Software}
 Complexidade de software é um produto natural do crescimento do número de recursos de um software. Com múltiplas interfaces e requerimentos complexos, a complexidade do software pode sair do controle tornando aplicações mais caras de serem mantidas e mais arriscado aprimora-las. Sem gerenciamento, a complexidade pode transformar aplicações em projetos grandes e pesados.
 
 Complexidade excessiva pode impactar negativamente na habilidade do desenvolvedor de gerenciar interações entre camadas e componentes em uma aplicação. Também pode tornar módulos difíceis de serem incrementados e testados. Cada parte do código deve ser verificada para determinar como a mesma afetará a robustez e flexibilidade da aplicação. Complexidade de software é uma das maiores preocupações de empresas que gerenciam diversas tecnologias e aplicações em uma arquitetura de vários níveis.
@@ -140,11 +106,11 @@ O número ciclomático de um grafo F com n vértices e p componentes conexos é:
 \[ v(G) = e - n + p \]
 \begin{theorem}
 \thlabel{independentCircuitsTheorem}
-Em um grafo fortemente conexo G, o número ciclomático é igual ao número máximo de circuitos independentes. 
+Em um grafo fortemente conexo G, o número ciclomático é igual ao número máximo de circuitos independentes(ou seja, conjunto de vértices não adjacentes entre si). 
 \end{theorem}
 
-O teorema acima é aplicado da seguinte forma: dado um programa, um grafo direcionado é associado ao mesmo possuindo pontos de início e fim únicos. Cada nó no grafo corresponde a um bloco de código no programa onde há um fluxo sequencial e cada aresta corresponde a ramificações no programa. Tal grafo também é conhecido como grafo de fluxo de controle. Assume-se que cada nó pode ser alcançado partido do ponto de entrada, e todos os nós levam ao ponto de saída. Porém, grafos de controle de fluxo não são fortemente conexos. Para aplicarmos o \thref{independentCircuitsTheorem}, adicionamos um "arco virtual" a partir do nó de saída \textit{f} levando ao nó de entrada \textit{a}. O grafo de controle de fluxo G torna-se fortemente conexo, ou seja, há um caminho quais dois vértices do grafo, tornando válida a aplicação do \thref{independentCircuitsTheorem}. A complexidade ciclomática é derivada do número ciclomático adicionando-se uma unidade representando-se a contribuição do arco virtual\cite{watson1996structured}. Portanto, o número máximo de circuitos linearmente independentes em G é:
-\[v(G) = 9 - 6 + 2 = 5\].
+O teorema acima é aplicado da seguinte forma: dado um programa, um grafo direcionado é associado ao mesmo possuindo pontos de início e fim únicos(respectivamente o ponto de entrada do programa como uma diretiva \textit{begin}, e o ponto de saída como a diretiva \texit{end}). Cada nó no grafo corresponde a um bloco de código no programa onde há um fluxo sequencial e cada aresta corresponde a ramificações no programa. Tal grafo também é conhecido como grafo de fluxo de controle. Assume-se que cada nó pode ser alcançado partido do ponto de entrada, e todos os nós levam ao ponto de saída. Porém, grafos de controle de fluxo não são fortemente conexos. Para aplicarmos o \thref{independentCircuitsTheorem}, adicionamos um "arco virtual" a partir do nó de saída \textit{f} levando ao nó de entrada \textit{a}. O grafo de controle de fluxo G torna-se fortemente conexo(Em um grafo conexo, exite um caminho entre quaisquer dois vértices do grafo) tornando válida a aplicação do \thref{independentCircuitsTheorem}. A complexidade ciclomática é derivada do número ciclomático adicionando-se uma unidade representando-se a contribuição do arco virtual\cite{watson1996structured}. Tomando como exemplo o grafo G, com nove arestas e seis vértices, temos:
+\[v(G) = 9 - 6 + 2 = 5\]
 Na Figura \ref{fig:grafo-de-controle-de-fluxo}, há a representação de um grafo de fluxo de controle com o nó de entrada \textit{a} e o nó de saída \textit{f}. 
 Assim, podemos escolher os seguintes circuitos independentes do em G:
 \begin{verbatim}
