@@ -1,24 +1,9 @@
 \chapter{Conclusões}
 \label{chapter:conclusion}
+Sistemas de \textit{software Open-Source} são parte integral do mundo moderno, atuando em áreas diversas como infraestrutura de rede, aplicações para o usuário final, linguagens de programação, entre outros. Apesar de muito utilizados, tais sistemas são pouco compreendidos e pouco se sabe de sua evolução.
 
-O Linux Kernel é considerado hoje o maior projeto de software público
-da história. Desde seu lançamento em 1991, vem impulsionando o desenvolvimento
-do ecossistema GNU/Linux como um todo, e tornou-se um dos softwares
-mais importantes do cenário atual. Estudar o funcionamento permite
-que os envolvidos no projeto avaliem a saúde do mesmo, e continuem
-a evoluir o projeto. Mesmo com a conclusão de trabalhos anteriores
-de que a qualidade do código que a manutenibilidade do código se degradava
-a cada novo lançamento, o Linux kernel continuou a ser um projeto
-de sucesso ao longo dos anos, superando tais limitações.
+Por tal motivo, foi conduzido um estudo empírico da evolução do framework de desenvolvimento distribuído \textit{Apache Hadoop}, para avaliar a validade das Leis de Lehman sobre evolução de \textit{software} no mesmo. Como resultados, encontramos que as leis de Mudança Contínua, Auto-Regulação e Crescimento contínuo aparentam válidas para o Hadoop, enquanto não foi possível validar as Complexidade Crescente, Conservação da Estabilidade Organizacional, Conservação da Familiaridade, Qualidade Decrescente, e Sistema de Realimentação, de forma similar a encontrada em trabalhos anteriores\cite{neamtiu2013towards,israeli2010linux,skoulis2014open}. 
 
-Este trabalho procurou avaliar o estado de manutenibilidade do projeto,
-através de uma análise do seu código fonte. Suas praticas de desenvolvimento
-foram revisadas, e com base no método SQALE o projeto foi avaliado
-utilizando o software SonarQube. Pode-se observar que mesmo possuindo
-um fluxo elevado de atividade a manutenibilidade do projeto está em
-bom estado, mantendo a classificação A, a melhor classificação de
-manutenibilidade dentro da escala estabelecida pelo SonarQube. Tal
-resultado refuta as previsões de Schach\cite{schach2002maintainability}.
-Os resultados também reforçam a avaliação realizada em \cite{israeli2010linux},
-mostrando que o software continua evoluindo com uma boa classificação
-de manutenibilidade.
+Este estudo procurou mostrar que as Leis de Lehman podem não se aplicar bem a projetos de \textit{software Open-Source}, assim evidenciando que há grandes oportunidades em pesquisa em evolução de \textit{software} no domínio. 
+
+Para uma melhor definição do comportamento das Leis de Lehman no domínio de sistemas de \textit{software Open-Source}, podemos em trabalhos futuros aplicar a metodologia utilizada a outros projetos dentro da \textit{Apache Foundation} ou mesmo fora dela, para e avaliar se os resultados são similares.
